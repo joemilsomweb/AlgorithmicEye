@@ -3,6 +3,9 @@ precision mediump float;
 uniform vec4 iMouse;
 uniform vec2 iResolution;
 uniform float iTime;
+uniform sampler2D texture;
+varying vec2 uvTex;
+
 
 float smin(float, float, float);
 vec3 estimateNormal(vec3);
@@ -27,15 +30,14 @@ float noise(vec2 p){
 
 void main()
 {
-    gl_FragColor = vec4(1., 0, 0, 1.);
+    float r = noise(gl_FragCoord.xy/30. + iTime/30.) * noise(gl_FragCoord.xy/30. + iTime/30.);
+    float g = noise(gl_FragCoord.yx/30. + iTime/30.) * noise(gl_FragCoord.xy/30. + iTime/30.);
+    float b = noise(gl_FragCoord.xy/30. + iTime/20.) * noise(gl_FragCoord.xy/30. + iTime/30.);
+    gl_FragColor = vec4(r, g, b, 1.);
 }
 
 vec3 estimateNormal(vec3 p) {
-    // return normalize(vec3(        
-    //     sphereFunc(vec3(p.x + EPSILON, p.y, p.z)) - sphereFunc(vec3(p.x - EPSILON, p.y, p.z)),
-    //     sphereFunc(vec3(p.x, p.y + EPSILON, p.z)) - sphereFunc(vec3(p.x, p.y - EPSILON, p.z)),
-    //     sphereFunc(vec3(p.x, p.y, p.z  + EPSILON)) - sphereFunc(vec3(p.x, p.y, p.z - EPSILON))
-    // ));
+
     return vec3(0);
 }
 
