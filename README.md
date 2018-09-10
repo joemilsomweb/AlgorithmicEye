@@ -1,4 +1,4 @@
-#Algo-Eye !!!WORK IN PROGRESS, ITS STILL UGLY!!!
+# Algo-Eye !!!WORK IN PROGRESS, ITS STILL UGLY!!!
 
 An Algorithmic(ish) Eye(and eventually face) generator (very much a work in progress)
 
