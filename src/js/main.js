@@ -9,16 +9,19 @@ import RenderSystem from "systems/render_system";
 
 const canvas = document.getElementById("main_canvas");
 
+
 function generateEyes(){
 	OutlineFactory.generate();
 	PupilFactory.generate();
 
+	//todo rename Eye Assemblage
+	//generate canvas within factories instead!! Better idea.... maybe?
 	let leftEyeEntities = EyeAssemblage.create({
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
 		position : {
-			x : 200,
-			y : canvas.height/2 - 150
+			x : 300,
+			y : canvas.height/2
 		}
 	});
 
@@ -26,8 +29,8 @@ function generateEyes(){
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
 		position : {
-			x : 512,
-			y : canvas.height/2 - 150
+			x : 612,
+			y : canvas.height/2
 		}
 	});
 
@@ -37,8 +40,10 @@ function generateEyes(){
 let currentFrame = 0;
 let entities = [];
 
+
 function draw(time){
 
+	//generate new eyes every 80 frames
 	if(currentFrame % 80 === 0){
 		entities = generateEyes();
 	}

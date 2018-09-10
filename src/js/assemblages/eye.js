@@ -3,6 +3,7 @@ import Entity from 'entity';
 import MeshComponent from 'components/mesh_component';
 import PositionComponent from 'components/position_component';
 
+//todo place eye at center point...
 const eye = {
 	create : function(options){
 		let eyeEntity = new Entity();
@@ -27,8 +28,8 @@ const eye = {
 
 		//create pupil at center, refactor later
 		pupilEntity.addComponent(new PositionComponent({
-				x : options.position.x + eyeMesh.bounds.width/2 - pupilMesh.bounds.width/2,
-				y : options.position.y + eyeMesh.bounds.height/2 - pupilMesh.bounds.width/2
+				x : options.position.x,
+				y : options.position.y
 		}));
 
 		return [eyeEntity, pupilEntity];

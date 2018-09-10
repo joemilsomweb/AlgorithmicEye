@@ -15,10 +15,10 @@ module.exports = {
     // compress: true,
   	port : 9000
   },
-  //put plugins into separate files for scalability
+  //TODO put plugins into separate files for scalability
   plugins : [
 	 new HtmlWebpackPlugin({
-            hash: true, //adds unique hash to js each time. better linked to git commit
+            hash: true, //adds unique hash to js each time. would be better linked to git commit hash
             filename: 'index.html',
             template : './src/index.html'
     })

@@ -11,7 +11,8 @@ const RenderSystem = {
 			//get geometry component
 			const meshComp = entity.components["MESH"];
 
-			context.drawImage(meshComp.canvas, posComp.x, posComp.y);
+			//draw image at center
+			context.drawImage(meshComp.canvas, posComp.x - meshComp.bounds.width/2, posComp.y - meshComp.bounds.height/2);
 		}
 	}
 

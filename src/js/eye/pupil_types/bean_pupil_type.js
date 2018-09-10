@@ -1,3 +1,5 @@
+//todo create program where you can draw the points, or use something like illustrator
+
 const BeanPupilType = {
 		
 		generateOutline : function(options){
@@ -22,7 +24,7 @@ const BeanPupilType = {
 
 				//draw top
 				for(var i = 0; i < 90; i++){
-					
+
 				}
 
 
