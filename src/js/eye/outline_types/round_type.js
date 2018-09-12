@@ -32,6 +32,8 @@ const RoundOutlineType = {
 			//return geometry...
 			return outlinePoints;
 		}
+
+
 };	
 
 export default RoundOutlineType;
