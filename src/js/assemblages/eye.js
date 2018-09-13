@@ -2,6 +2,7 @@ import Entity from 'entity';
 
 import MeshComponent from 'components/mesh_component';
 import PositionComponent from 'components/position_component';
+import NoiseComponent from 'components/random_noise_component';
 
 //todo place eye at center point...
 const eye = {
@@ -31,6 +32,8 @@ const eye = {
 				x : options.position.x,
 				y : options.position.y
 		}));
+
+		pupilEntity.addComponent(new NoiseComponent());
 
 		return [eyeEntity, pupilEntity];
 	}

@@ -2,12 +2,14 @@ import RoundOutlineType from 'eye/outline_types/round_type';
 
 import AnimeOutlineData from 'data/outline_geometry/anime_outline_data';
 import AlmondHorizontalData from 'data/outline_geometry/almond_horizontal_data';
+import AlmondVerticalData from 'data/outline_geometry/almond_vertical_data';
+import ShiftyOutlineData from 'data/outline_geometry/shifty_eye_data';
 
 
 //maybe can be either data via points or algorithmic possibly 
 //possibly could curry functions to create functions that operate on the data and to generate
 //the generateOutline function, but also have algorithmic functions coded manually   
-let generatorFunctions = [RoundOutlineType, AnimeOutlineData, AlmondHorizontalData];
+let generatorFunctions = [AnimeOutlineData, AlmondHorizontalData, AlmondVerticalData, ShiftyOutlineData];
 // let generatorFunctions = [AlmondHOutlineType];
 
 
@@ -16,11 +18,11 @@ const OutlineFactory = {
 		//choose random generator from list
 		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
 		if(Array.isArray(generator)){
-			const w = Math.random() * 100 + 80;
-			const h = Math.random() * 100 + 80;
+			const w = Math.random() * 400 + 200;
+			const h = Math.random() * 200 + 100;
 
 			this.geometry = generator.map((point) => {
-				return {x : point.x * w, y : point.y * h}
+				return {x : (point.x + 0.1) * w, y : (point.y + 0.1) * h}
 			});
 		}
 		else{			

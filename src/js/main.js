@@ -6,6 +6,7 @@ import PupilFactory from 'eye/pupil_types/pupil_factory';
 
 //systems
 import RenderSystem from "systems/render_system";
+import UpdatePosSystem from "systems/update_pos_system";
 
 const canvas = document.getElementById("main_canvas");
 
@@ -20,7 +21,7 @@ function generateEyes(){
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
 		position : {
-			x : 300,
+			x : 200,
 			y : canvas.height/2
 		}
 	});
@@ -29,7 +30,7 @@ function generateEyes(){
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
 		position : {
-			x : 612,
+			x : 712,
 			y : canvas.height/2
 		}
 	});
@@ -44,10 +45,11 @@ let entities = [];
 function draw(time){
 
 	//generate new eyes every 80 frames
-	if(currentFrame % 80 === 0){
+	if(currentFrame % 300 === 0){
 		entities = generateEyes();
 	}
 
+	UpdatePosSystem.update(entities);
 	RenderSystem.render(canvas, entities);
 
 	currentFrame++;

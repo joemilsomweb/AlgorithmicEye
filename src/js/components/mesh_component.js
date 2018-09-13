@@ -1,8 +1,5 @@
 import BoundsCalculator from "helper/bounds_calculator";
 
-import TestDraw from "data/pupil_geometry/bean_draw";
-import TestData from "data/outline_geometry/anime_outline_data";
-
 //would be nice to have it as an import
 const paper = require("paper");
 console.log(paper);
@@ -22,24 +19,23 @@ class MeshComponent{
 	createCanvas(){
 		this.canvas = document.createElement("canvas");
 		
-		//for now
-		this.canvas.width = this.bounds.width;
-		this.canvas.height = this.bounds.height;
-
-		this.canvas.width = 500;
-		this.canvas.height = 500;
-		this.context = this.canvas.getContext('2d');
 		paper.setup(this.canvas);
 	}
 
 	drawGeometry(){
 		let path = new paper.Path();
-		path.strokeColor = "black";
+		// path.strokeColor = "black";
 		for(var p of this.geometry){
 			path.add(new paper.Point(p.x, p.y));
 		}
 		path.smooth();
 		path.simplify();
+
+		path.fillColor = new paper.Color(Math.random(), Math.random(), Math.random());
+
+		console.log(path.bounds);
+		this.canvas.width = path.bounds.width + path.bounds.left;
+		this.canvas.height = path.bounds.height + path.bounds.top;
 
 		this.debugAIScript();
 	}
