@@ -10,7 +10,8 @@ const eye = {
 		let eyeEntity = new Entity();
 
 		eyeEntity.addComponent(new MeshComponent({
-			geometry : options.eyeGeometry
+			geometry : options.eyeGeometry,
+			zOrder : 0
 		}));
 
 		eyeEntity.addComponent(new PositionComponent({
@@ -21,7 +22,8 @@ const eye = {
 		let pupilEntity = new Entity();
 
 		pupilEntity.addComponent(new MeshComponent({
-			geometry : options.pupilGeometry
+			geometry : options.pupilGeometry,
+			zOrder : 1
 		}));
 		
 		const eyeMesh = eyeEntity.components["MESH"];

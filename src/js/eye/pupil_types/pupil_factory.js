@@ -13,11 +13,10 @@ const PupilFactory = {
 	generate : function(){
 		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
 		if(Array.isArray(generator)){
-			const w = Math.random() * 20 + 20;
-			// const h = Math.random() * 40;
+			const s = Math.random() * 130 + 20;
 
 			this.geometry = generator.map((point) => {
-				return {x : (point.x + 0.2) * w, y : (point.y + 0.2) * w}
+				return {x : (point.x + 0.2) * s, y : (point.y + 0.2) * s}
 			});
 		}
 		else{			

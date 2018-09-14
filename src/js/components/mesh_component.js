@@ -10,6 +10,7 @@ class MeshComponent{
 	
 	constructor(options){
 		this.geometry = options.geometry;
+		this.zOrder = options.zOrder;
 		this.bounds = BoundsCalculator.calculateBounds(this.geometry);
 		this.createCanvas();
 		this.drawGeometry();
@@ -33,7 +34,7 @@ class MeshComponent{
 
 		path.fillColor = new paper.Color(Math.random(), Math.random(), Math.random());
 
-		console.log(path.bounds);
+		// console.log(path.bounds);
 		this.canvas.width = path.bounds.width + path.bounds.left;
 		this.canvas.height = path.bounds.height + path.bounds.top;
 

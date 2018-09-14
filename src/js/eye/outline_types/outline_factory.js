@@ -18,11 +18,10 @@ const OutlineFactory = {
 		//choose random generator from list
 		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
 		if(Array.isArray(generator)){
-			const w = Math.random() * 400 + 200;
-			const h = Math.random() * 200 + 100;
-
+			const s = Math.random() * 400 + 200;
+			
 			this.geometry = generator.map((point) => {
-				return {x : (point.x + 0.1) * w, y : (point.y + 0.1) * h}
+				return {x : (point.x + 0.1) * s, y : (point.y + 0.1) * s}
 			});
 		}
 		else{			

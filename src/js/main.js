@@ -45,7 +45,7 @@ let entities = [];
 function draw(time){
 
 	//generate new eyes every 80 frames
-	if(currentFrame % 300 === 0){
+	if(currentFrame % 80 === 0){
 		entities = generateEyes();
 	}
 

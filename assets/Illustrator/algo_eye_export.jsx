@@ -88,15 +88,16 @@ function normalisePointsAtZero(points, bounds){
     }
 
     var maxXY = findMaxXY(pArr);
+    var scale = maxXY.maxX > maxXY.maxY ? maxXY.maxX : maxXY.maxY;
 
     //ANOTHER loop for the normalisation
     for(var i = 0; i < pArr.length; i++){
-        pArr[i].position.x /= maxXY.maxX;
-        pArr[i].position.y /= maxXY.maxY;
-        pArr[i].leftDirection.x /= maxXY.maxX;
-        pArr[i].leftDirection.y /= maxXY.maxY;
-        pArr[i].rightDirection.x /= maxXY.maxX;
-        pArr[i].rightDirection.y /= maxXY.maxY;
+        pArr[i].position.x /= scale;
+        pArr[i].position.y /= scale;
+        pArr[i].leftDirection.x /= scale;
+        pArr[i].leftDirection.y /= scale;
+        pArr[i].rightDirection.x /= scale;
+        pArr[i].rightDirection.y /= scale;
     }
 
     //round numbers to 2dp
