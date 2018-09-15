@@ -19,7 +19,7 @@ const RenderSystem = {
 
 			//draw image at center
 			//TODO refactor later
-			context.globalCompositeOperation = meshComp.zOrder === 0 ? "source-over" : "source-atop"; 
+			context.globalCompositeOperation = meshComp.zOrder <= 0 ? "source-over" : "source-atop"; 
 			context.drawImage(meshComp.canvas, posComp.x - meshComp.bounds.width/2, posComp.y - meshComp.bounds.height/2);
 		}
 	},

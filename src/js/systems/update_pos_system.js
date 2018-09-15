@@ -11,7 +11,7 @@ const UpdatePosSystem = {
 			if(noiseComp){
 				noiseComp.update();
 				// console.log(noiseComp.sinOffset);
-				posComp.x += noiseComp.offsetX; 
+				posComp.y += noiseComp.offsetX; 
 			}
 		}
 	}

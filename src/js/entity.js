@@ -7,6 +7,7 @@ const Entity = class{
 		this.components = {};
 	}
 
+	//not really utilised. probably more useful for hardout c++ programs
 	generateId(){
 		this.id = Math.random();
 	}
@@ -19,6 +20,10 @@ const Entity = class{
 			return;
 		}
 		this.components[component.name] = component;
+	}
+
+	getComponent(name){
+		return this.components[name];
 	}
 
 }
