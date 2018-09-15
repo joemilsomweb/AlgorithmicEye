@@ -4,12 +4,19 @@ class BoundsComponent{
 		this.bounds = options.bounds;
 	}
 
-	checkBounds(){
+	checkBounds(x, y){
+		if(x < bounds.x || x > bounds.x){
+			return true;
+		}
+		if(y < bounds.y || y > bounds.y){
+			return true;
+		}
 		
+		return false;
 	}
 
 }
 
 BoundsComponent.prototype.name = "BOUNDS";
 
-export default KeepInBoundsComponent;
+export default BoundsComponent;

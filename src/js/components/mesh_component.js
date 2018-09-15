@@ -10,8 +10,8 @@ class MeshComponent{
 	constructor(options){
 		this.geometry = options.geometry;
 		this.zOrder = options.zOrder;
-		this.bounds = BoundsCalculator.calculateBounds(this.geometry);
 		this.center = options.center;
+		this.globalCompositeOperation = options.globalCompositeOperation;
 
 		this.createCanvas();
 		this.drawGeometry();
@@ -36,9 +36,9 @@ class MeshComponent{
 
 		this.path.fillColor = new paper.Color(Math.random(), Math.random(), Math.random());
 
-		this.canvas.width = this.width = this.path.bounds.width + this.path.bounds.left;
-		this.canvas.height = this.height = this.path.bounds.height + this.path.bounds.top;
-
+		this.canvas.width = this.width = this.path.bounds.width + this.path.bounds.x;
+		this.canvas.height = this.height = this.path.bounds.height + this.path.bounds.y;
+		this.bounds = this.path.bounds;
 	}
 }
 

@@ -56,21 +56,27 @@ function generateEyes(){
 }
 
 let currentFrame = 0;
-let entities = [];
-
+let entities = generateEyes();
 
 function draw(time){
 
-	//generate new eyes every 80 frames
-	if(currentFrame % 140 === 0){
-		entities = generateEyes();
-	}
+	// //generate new eyes every 80 frames
+	// if(currentFrame % 140 === 0){
+	//		entities = generateEyes()
+	// }
 
 	UpdatePosSystem.update(entities);
 	RenderSystem.render(canvas, entities);
 
 	currentFrame++;
 	requestAnimationFrame(draw);
+}
+
+//for debug
+window.onkeypress = function(e){
+	if(e.keyCode == 32){
+        entities = generateEyes();
+    }
 }
 
 draw();

@@ -2,6 +2,8 @@ import Entity from 'entity';
 
 import MeshComponent from 'components/mesh_component';
 import PositionComponent from 'components/position_component';
+import RotationComponent from 'components/rotation_component';
+import BoundsComponent from 'components/bounds_component';
 import NoiseComponent from 'components/random_noise_component';
 
 const paper = require("paper");
@@ -9,34 +11,8 @@ const paper = require("paper");
 //todo place eye at center point...
 const eye = {
 	create : function(options){
-		let eyeEntity = new Entity();
-
-		eyeEntity.addComponent(new MeshComponent({
-			geometry : options.eyeGeometry,
-			zOrder : 0,
-			center : true
-		}));
-
-		eyeEntity.addComponent(new PositionComponent({
-				x : options.position.x,
-				y : options.position.y
-		}));
-
-		let pupilEntity = new Entity();
-
-		pupilEntity.addComponent(new MeshComponent({
-			geometry : options.pupilGeometry,
-			zOrder : 1,
-			center : true
-		}));
-
-		//create pupil at center, refactor later
-		pupilEntity.addComponent(new PositionComponent({
-				x : options.position.x,
-				y : options.position.y
-		}));
-
-		pupilEntity.addComponent(new NoiseComponent());
+		let eyeEntity = this.setupEye(options.position, options.eyeGeometry);
+		let pupilEntity = this.setupPupil(options.position, options.pupilGeometry, eyeEntity.getComponent("MESH"));
 
 		let eyeLashEntities = this.setupEyelashes(
 			options.eyelashGeometry, 
@@ -45,6 +21,55 @@ const eye = {
 		);
 
 		return [eyeEntity, pupilEntity].concat(eyeLashEntities);
+	},
+
+	setupEye : function(position, eyeGeometry){
+		let eyeEntity = new Entity();
+
+		eyeEntity.addComponent(new MeshComponent({
+			geometry : eyeGeometry,
+			zOrder : 0,
+			center : true,
+			globalCompositeOperation : "source-over"
+		}));
+
+		eyeEntity.addComponent(new PositionComponent({
+				x : position.x,
+				y : position.y
+		}));
+
+		return eyeEntity;
+	},
+
+	setupPupil : function(position, pupilGeometry, eyeMesh){
+		let pupilEntity = new Entity();
+
+		pupilEntity.addComponent(new MeshComponent({
+			geometry : pupilGeometry,
+			zOrder : 2,
+			center : true,
+			globalCompositeOperation : "source-atop"
+		}));
+
+		//create pupil at center, refactor later
+		pupilEntity.addComponent(new PositionComponent({
+				x : position.x,
+				y : position.y
+		}));
+
+		//need to refactor here
+		pupilEntity.addComponent(new BoundsComponent({
+			bounds :  {
+				x : eyeMesh.bounds.x + position.x - eyeMesh.bounds.width/2 - pupilEntity.getComponent("MESH").bounds.width/2,
+				y : eyeMesh.bounds.y + position.y - eyeMesh.bounds.height/2 - pupilEntity.getComponent("MESH").bounds.height/2,
+				width : eyeMesh.bounds.width,
+				height : eyeMesh.bounds.height
+			}
+		}));
+
+		pupilEntity.addComponent(new NoiseComponent());
+
+		return pupilEntity;
 	},
 
 	setupEyelashes : function(eyelashGeometry, eyePos, eyeMesh){
@@ -56,31 +81,24 @@ const eye = {
 			let eyelashEntity = new Entity();
 			let point = eyeMesh.path.getPointAt(eyelashSep * i);
 			
+			eyelashEntity.addComponent(new MeshComponent({
+				geometry : eyelashGeometry,
+				zOrder : 3,
+				center : true,
+				globalCompositeOperation : "destination-over"
+			}));
+
 			eyelashEntity.addComponent(new PositionComponent({
 				x : point.x + eyePos.x - eyeMesh.width/2,
 				y : point.y + eyePos.y - eyeMesh.height/2
 			}));
 
-			eyelashEntity.addComponent(new MeshComponent({
-				geometry : eyelashGeometry,
-				zOrder : -1,
-				center : true
+			eyelashEntity.addComponent(new RotationComponent({
+				rotation : 0	
 			}));
 
 			eyelashEntities.push(eyelashEntity);
 		}
-
-		//FOR EYELASHES!! YAYAYAY
-		// Create a small circle shaped path at the point:
-		// for(let i = 0; i < 8; i++){
-		// 	let l = path.length/8; 	
-		// 	let point = path.getPointAt(l*i);
-		// 	let circle = new paper.Path.Circle({
-		// 	    center: point,
-		// 	    radius: 3,
-		// 	    fillColor: 'red'
-		// 	});
-		// }
 
 		return eyelashEntities;
 	}
