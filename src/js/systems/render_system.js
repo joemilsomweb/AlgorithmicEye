@@ -17,10 +17,21 @@ const RenderSystem = {
 			//get geometry component
 			const meshComp = entity.getComponent("MESH");
 
+			context.save();
+
+			const rotation = entity.getComponent("ROTATION") ? entity.getComponent("ROTATION").rotation : 0; 
+			const noiseRotation = entity.getComponent("NOISE_ROTATION") ? entity.getComponent("NOISE_ROTATION").rotation : 0; 
+
+			context.translate(posComp.x, posComp.y);
+			context.rotate(rotation + noiseRotation);
+			context.translate(-meshComp.width/2, -meshComp.height/2);
+
 			//draw image at center
 			//TODO refactor later
 			context.globalCompositeOperation = meshComp.globalCompositeOperation || "source-over"; 
-			context.drawImage(meshComp.canvas, posComp.x - meshComp.width/2, posComp.y - meshComp.height/2);
+			context.drawImage(meshComp.canvas, 0, 0);
+		
+			context.restore();
 		}
 	},
 

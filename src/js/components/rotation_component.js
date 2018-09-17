@@ -1,8 +1,7 @@
 class RotationComponent{
 	
 	constructor(options){
-		this.x = options.x;
-		this.y = options.y;
+		this.rotation = options.rotation;
 	}
 
 }

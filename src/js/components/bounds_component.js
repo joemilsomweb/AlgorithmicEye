@@ -1,18 +1,13 @@
+const paper = require("paper");
+
 class BoundsComponent{
 	
 	constructor(options){
-		this.bounds = options.bounds;
+		this.boundsPath = options.boundsPath;
 	}
 
 	checkBounds(x, y){
-		if(x < bounds.x || x > bounds.x){
-			return true;
-		}
-		if(y < bounds.y || y > bounds.y){
-			return true;
-		}
-		
-		return false;
+		return this.boundsPath.contains(new paper.Point(x, y));
 	}
 
 }

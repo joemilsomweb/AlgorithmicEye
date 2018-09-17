@@ -5,7 +5,10 @@ import PositionComponent from 'components/position_component';
 import RotationComponent from 'components/rotation_component';
 import BoundsComponent from 'components/bounds_component';
 import NoiseComponent from 'components/random_noise_component';
+import MouseFollowComponent from 'components/mouse_follow_component';
+import NoiseRotationComponent from 'components/noise_rotation_component';
 
+//can replace with shim....
 const paper = require("paper");
 
 //todo place eye at center point...
@@ -21,6 +24,8 @@ const eye = {
 		);
 
 		return [eyeEntity, pupilEntity].concat(eyeLashEntities);
+		// return [eyeEntity].concat(eyeLashEntities);
+		// return [eyeEntity];
 	},
 
 	setupEye : function(position, eyeGeometry){
@@ -30,7 +35,7 @@ const eye = {
 			geometry : eyeGeometry,
 			zOrder : 0,
 			center : true,
-			globalCompositeOperation : "source-over"
+			globalCompositeOperation : "source-over",
 		}));
 
 		eyeEntity.addComponent(new PositionComponent({
@@ -59,15 +64,15 @@ const eye = {
 
 		//need to refactor here
 		pupilEntity.addComponent(new BoundsComponent({
-			bounds :  {
-				x : eyeMesh.bounds.x + position.x - eyeMesh.bounds.width/2 - pupilEntity.getComponent("MESH").bounds.width/2,
-				y : eyeMesh.bounds.y + position.y - eyeMesh.bounds.height/2 - pupilEntity.getComponent("MESH").bounds.height/2,
-				width : eyeMesh.bounds.width,
-				height : eyeMesh.bounds.height
-			}
+			boundsPath : eyeMesh.path
+		}));
+		pupilEntity.addComponent(new NoiseRotationComponent({
+			scale : 10
 		}));
 
-		pupilEntity.addComponent(new NoiseComponent());
+		// pupilEntity.addComponent(new MouseFollowComponent());
+
+		// pupilEntity.addComponent(new NoiseComponent());
 
 		return pupilEntity;
 	},
@@ -83,19 +88,30 @@ const eye = {
 			
 			eyelashEntity.addComponent(new MeshComponent({
 				geometry : eyelashGeometry,
-				zOrder : 3,
+				zOrder : 3 + i,
 				center : true,
 				globalCompositeOperation : "destination-over"
 			}));
 
+			const tempOffset = eyelashEntity.getComponent("MESH").height/2;
+
 			eyelashEntity.addComponent(new PositionComponent({
 				x : point.x + eyePos.x - eyeMesh.width/2,
-				y : point.y + eyePos.y - eyeMesh.height/2
+				y : point.y  + eyePos.y - eyeMesh.height/2
 			}));
 
+			//get normal vector
+			const normal = eyeMesh.path.getNormalAt(eyelashSep * i);
+			const dirVector = new paper.Point(0, -1);
+			const angle = dirVector.getDirectedAngle(normal);
+
 			eyelashEntity.addComponent(new RotationComponent({
-				rotation : 0	
+				rotation : angle * Math.PI / 180
 			}));
+
+			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 30}));
+
+			// eyeMesh.debugNormalAtPoint(point, normal);
 
 			eyelashEntities.push(eyelashEntity);
 		}

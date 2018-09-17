@@ -18,10 +18,21 @@ function generateEyes(){
 	PupilFactory.generate();
 	EyelashFactory.generate();
 
+	// let centerEyeEntities = EyeAssemblage.create({
+	// 	eyeGeometry : OutlineFactory.get(), 
+	// 	pupilGeometry : PupilFactory.get(),
+	// 	eyelashGeometry : EyelashFactory.get(),
+	// 	position : {
+	// 		x : canvas.width/2,
+	// 		y : canvas.height/2
+	// 	}
+	// });
+
+
 	let topEyeEntities = EyeAssemblage.create({
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
-		eyelashGeometry : PupilFactory.get(),
+		eyelashGeometry : EyelashFactory.get(),
 		position : {
 			x : canvas.width/2 - 60,
 			y : canvas.height/2 - 300
@@ -33,7 +44,7 @@ function generateEyes(){
 	let leftEyeEntities = EyeAssemblage.create({
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
-		eyelashGeometry : PupilFactory.get(),
+		eyelashGeometry : EyelashFactory.get(),
 		position : {
 			x : 200,
 			y : canvas.height/2
@@ -43,7 +54,7 @@ function generateEyes(){
 	let rightEyeEntities = EyeAssemblage.create({
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
-		eyelashGeometry : PupilFactory.get(),
+		eyelashGeometry : EyelashFactory.get(),
 		position : {
 			x : 712,
 			y : canvas.height/2
@@ -53,6 +64,7 @@ function generateEyes(){
 	
 
 	return leftEyeEntities.concat(rightEyeEntities).concat(topEyeEntities);
+	// return centerEyeEntities;
 }
 
 let currentFrame = 0;

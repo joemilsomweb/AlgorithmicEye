@@ -6,20 +6,30 @@ const UpdatePosSystem = {
 			const noiseComp = entity.getComponent("NOISE");		
 			const boundsComp = entity.getComponent("BOUNDS");		
 			const posComp = entity.getComponent("POSITION");		
-			//get geometry component
-			if(noiseComp){
-				noiseComp.update();
-				// console.log(noiseComp.sinOffset);
-				posComp.x += noiseComp.offsetX * 5; 
-				// posComp.y += 10; 
-			}
+			const mouseFollowComp = entity.getComponent("MOUSE_FOLLOW");		
+			const noiseRotation = entity.getComponent("NOISE_ROTATION");		
+
 
 			if(boundsComp){
-				posComp.x = this.clamp(posComp.x, boundsComp.bounds.x, boundsComp.bounds.x + boundsComp.bounds.width);
-				posComp.y = this.clamp(posComp.y, boundsComp.bounds.y, boundsComp.bounds.y + boundsComp.bounds.height);
+				let isInsidePath = boundsComp.checkBounds(posComp.x, posComp.y);
+			}
+
+			if(mouseFollowComp){
+				posComp.x += mouseFollowComp.getMouseVector().x; 
+			}
+
+			if(noiseComp){
+				noiseComp.update();
+				posComp.x += noiseComp.offsetX * 10; 
+			}
+
+			if(noiseRotation){
+				noiseRotation.update();
 			}
 		}
 	},
+
+
 
 	clamp : function(value, min, max){
 		return Math.min(Math.max(value, min), max);
