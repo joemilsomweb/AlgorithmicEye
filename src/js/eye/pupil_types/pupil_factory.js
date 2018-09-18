@@ -1,13 +1,10 @@
 //pupils from manual code
 import RoundPupilType from 'eye/pupil_types/round_pupil_type';
 
-//pupils from data. todo make curried function
-import BeanPupilData from 'data/pupil_geometry/bean_pupil_data';
-import VAlmondPupilData from 'data/pupil_geometry/almond_v_pupil_data';
+let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/pupil_geometry"};
+generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/eyelash_geometry"});
+generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/outline_geometry"});
 
-
-// let generatorFunctions = [BeanPupilData, RoundPupilType, VAlmondPupilData];
-let generatorFunctions = [BeanPupilData, VAlmondPupilData];
 
 const PupilFactory = {
 	generate : function(){

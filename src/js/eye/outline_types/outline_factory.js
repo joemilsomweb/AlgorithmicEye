@@ -1,16 +1,9 @@
 import RoundOutlineType from 'eye/outline_types/round_type';
 
-import AnimeOutlineData from 'data/outline_geometry/anime_outline_data';
-import AlmondHorizontalData from 'data/outline_geometry/almond_horizontal_data';
-import AlmondVerticalData from 'data/outline_geometry/almond_vertical_data';
-import ShiftyOutlineData from 'data/outline_geometry/shifty_eye_data';
-
-
-//maybe can be either data via points or algorithmic possibly 
-//possibly could curry functions to create functions that operate on the data and to generate
-//the generateOutline function, but also have algorithmic functions coded manually   
-let generatorFunctions = [AnimeOutlineData, AlmondHorizontalData, AlmondVerticalData, ShiftyOutlineData];
-// let generatorFunctions = [AlmondHOutlineType];
+//bit funky, create inline function via loader that imports all outline datas from directory
+let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/outline_geometry"};
+generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/eyelash_geometry"});
+generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/pupil_geometry"});
 
 
 const OutlineFactory = {

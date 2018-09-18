@@ -1,39 +1,55 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require("webpack");
+const fs = require('fs');
+
+
+let wpPlugins = [];
+//look in active plugins directory
+
+//wondering about the order of plugins here. does it matter??
+const activePluginsDir = path.resolve(__dirname, 'webpack/plugins/active_plugins');
+const pluginPaths = fs.readdirSync(activePluginsDir);
+
+for(p of pluginPaths){
+    //only initialise files that have a plugin init extension
+    if(p.indexOf("plugin-init.js") !== -1){
+      //require them as modules, need to remove the js for node to require properly
+      wpPlugins.push(require(activePluginsDir + '/' + p.split(".js")[0]));
+    }
+}
+
+
 
 module.exports = {
   entry: {
-  	//TODO use path resolver
-  	filename: './src/js/main.js'
+    //TODO use path resolver
+    filename: path.resolve(__dirname,'src/js/main.js')
   },
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist')
   },
   devServer : {
-  	contentBase: path.join(__dirname, '/dist'),
+    contentBase: path.join(__dirname, '/dist'),
     // compress: true,
-  	port : 9000
+    port : 9000
   },
-  //TODO put plugins into separate files for scalability
-  plugins : [
-	 new HtmlWebpackPlugin({
-            hash: true, //adds unique hash to js each time. would be better linked to git commit hash
-            filename: 'index.html',
-            template : './src/index.html'
-    }),
-   new webpack.ProvidePlugin({
-      // 'paper' : path.join(__dirname, '/src/js/lib/paperjs/paper-full.min'),
-      'noise' : path.join(__dirname, '/src/js/lib/noise')
-    })
-  ],
+  plugins : wpPlugins,
   resolve: {
     modules: [
       path.resolve('./src/js'),
-      // path.resolve('./src/js/lib'),
-      path.resolve('./node_modules')
+      path.resolve('./node_modules'),
     ]
-}
- 
+  },
+  module : {
+    rules : [
+      {
+        test : /\.js$/,
+        use : "outline_data_loader"
+      }
+    ]
+  },
+  resolveLoader: {
+    modules: ['node_modules', path.resolve(__dirname, 'webpack/loaders/active_loaders')]
+  },
+  context: path.resolve(__dirname)
 };

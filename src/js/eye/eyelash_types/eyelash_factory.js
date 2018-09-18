@@ -1,15 +1,6 @@
-import PetalOutlineData from 'data/eyelash_geometry/petal_eyelash_data';
-import StraightOutlineData from 'data/eyelash_geometry/straight_eyelash_data';
-import CloverOutlineData from 'data/eyelash_geometry/clover_eyelash_data';
-import SharpLeafOutlineData from 'data/eyelash_geometry/sharp_leaf_data';
-import SquigglesOutlineData from 'data/eyelash_geometry/squiggles_eyelash_data';
-
-//maybe can be either data via points or algorithmic possibly 
-//possibly could curry functions to create functions that operate on the data and to generate
-//the generateOutline function, but also have algorithmic functions coded manually   
-// let generatorFunctions = [];
-let generatorFunctions = [StraightOutlineData, PetalOutlineData, CloverOutlineData, SharpLeafOutlineData, SquigglesOutlineData];
-
+let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/eyelash_geometry"};
+generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/pupil_geometry"});
+generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/outline_geometry"});
 
 const EyelashFactory = {
 	generate : function(){
