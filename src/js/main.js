@@ -9,6 +9,7 @@ import EyelashFactory from 'eye/eyelash_types/eyelash_factory';
 //systems
 import RenderSystem from "systems/render_system";
 import UpdatePosSystem from "systems/update_pos_system";
+import WebglPostProcessSystem from "systems/webgl_postprocess_system";
 
 const canvas = document.getElementById("main_canvas");
 
@@ -20,27 +21,6 @@ function generateEyes(){
 
 	// let numEyelashes = Math.floor(Math.random() * 30);
 	let numEyelashes = 30;
-
-	// let centerEyeEntities = EyeAssemblage.create({
-	// 	eyeGeometry : OutlineFactory.get(), 
-	// 	pupilGeometry : PupilFactory.get(),
-	// 	eyelashGeometry : EyelashFactory.get(),
-	// 	position : {
-	// 		x : canvas.width/2,
-	// 		y : canvas.height/2
-	// 	}
-	// });
-
-
-	// let topEyeEntities = EyeAssemblage.create({
-	// 	eyeGeometry : OutlineFactory.get(), 
-	// 	pupilGeometry : PupilFactory.get(),
-	// 	eyelashGeometry : EyelashFactory.get(),
-	// 	position : {
-	// 		x : canvas.width/2 - 60,
-	// 		y : canvas.height/2 - 300
-	// 	}
-	// });
 
 	//todo rename Eye Assemblage
 	//generate canvas within factories instead!! Better idea.... maybe?
@@ -66,11 +46,7 @@ function generateEyes(){
 		numEyelashes : numEyelashes
 	});
 
-	
-
-	// return leftEyeEntities.concat(rightEyeEntities).concat(topEyeEntities);
 	return leftEyeEntities.concat(rightEyeEntities);
-	// return centerEyeEntities;
 }
 
 let currentFrame = 0;

@@ -1,16 +1,10 @@
-
 class ScaleComponent{
 	
 	constructor(options){
-		this.boundsPath = options.boundsPath;
+		this.scale = options.scale;
 	}
-
-	checkBounds(x, y){
-		return this.boundsPath.contains(new paper.Point(x, y));
-	}
-
 }
 
-ScaleComponent.prototype.name = "BOUNDS";
+ScaleComponent.prototype.name = "SCALE";
 
 export default ScaleComponent;

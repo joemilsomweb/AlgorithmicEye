@@ -7,6 +7,7 @@ import BoundsComponent from 'components/bounds_component';
 import NoiseComponent from 'components/random_noise_component';
 import MouseFollowComponent from 'components/mouse_follow_component';
 import NoiseRotationComponent from 'components/noise_rotation_component';
+import ScaleComponent from 'components/scale_component';
 
 //can replace with shim....
 const paper = require("paper");
@@ -113,6 +114,8 @@ const eye = {
 			}));
 
 			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 10}));
+
+			eyelashEntity.addComponent(new ScaleComponent({scale : Math.random() + 0.5}));
 
 			// eyeMesh.debugNormalAtPoint(point, normal);
 
