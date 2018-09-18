@@ -39,6 +39,8 @@ class MeshComponent{
 		this.path.simplify();
 
 		this.path.fillColor = this.color;
+		// this.path.strokeColor = "black";
+		// this.path.strokeWidth = 2;
 
 		//set path position to 0
 		this.path.position.x -= this.path.bounds.x;

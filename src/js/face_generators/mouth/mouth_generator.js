@@ -40,6 +40,7 @@ const mouth = {
 		for(let i = 0; i < numTeeth; i++){
 			let teethEntity = new Entity();
 			let point = mouthMesh.path.getPointAt(teethSep * i);
+			//quick hack here
 			if(point.y > mouthMesh.path.bounds.height/2){
 				continue;
 			}
@@ -49,7 +50,8 @@ const mouth = {
 				zOrder : 3 + i,
 				center : true,
 				globalCompositeOperation : "source-atop",
-				drawPos : "BOTTOM-CENTER"
+				drawPos : "BOTTOM-CENTER",
+				color : "white"
 			}));
 
 			const tempOffset = teethEntity.getComponent("MESH").height/2;
