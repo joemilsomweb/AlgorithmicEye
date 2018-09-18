@@ -20,7 +20,7 @@ const UpdatePosSystem = {
 
 			if(noiseComp){
 				noiseComp.update();
-				posComp.x += noiseComp.offsetX * 10; 
+				posComp.x += noiseComp.offsetX; 
 			}
 
 			if(noiseRotation){

@@ -2,8 +2,6 @@ import RoundOutlineType from 'eye/outline_types/round_type';
 
 //bit funky, create inline function via loader that imports all outline datas from directory
 let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/outline_geometry"};
-generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/eyelash_geometry"});
-generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/pupil_geometry"});
 
 
 const OutlineFactory = {

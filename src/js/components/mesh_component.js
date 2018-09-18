@@ -10,10 +10,13 @@ class MeshComponent{
 	constructor(options){
 		this.geometry = options.geometry;
 		this.zOrder = options.zOrder;
-		this.center = options.center;
+		this.drawPos = options.drawPos;
 		this.globalCompositeOperation = options.globalCompositeOperation;
 
 		this.createCanvas();
+
+		this.color = options.color || new this.paperScope.Color(Math.random(), Math.random(), Math.random());
+
 		this.drawGeometry();
 
 	}
@@ -35,7 +38,7 @@ class MeshComponent{
 		this.path.smooth();
 		this.path.simplify();
 
-		this.path.fillColor = new this.paperScope.Color(Math.random(), Math.random(), Math.random());
+		this.path.fillColor = this.color;
 
 		//set path position to 0
 		this.path.position.x -= this.path.bounds.x;

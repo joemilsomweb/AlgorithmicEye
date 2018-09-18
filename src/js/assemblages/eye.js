@@ -18,6 +18,7 @@ const eye = {
 		let pupilEntity = this.setupPupil(options.position, options.pupilGeometry, eyeEntity.getComponent("MESH"));
 
 		let eyeLashEntities = this.setupEyelashes(
+			options.numEyelashes,
 			options.eyelashGeometry, 
 			eyeEntity.getComponent("POSITION"),  
 			eyeEntity.getComponent("MESH")
@@ -36,6 +37,7 @@ const eye = {
 			zOrder : 0,
 			center : true,
 			globalCompositeOperation : "source-over",
+			drawPos : "CENTER"
 		}));
 
 		eyeEntity.addComponent(new PositionComponent({
@@ -53,7 +55,8 @@ const eye = {
 			geometry : pupilGeometry,
 			zOrder : 2,
 			center : true,
-			globalCompositeOperation : "source-atop"
+			globalCompositeOperation : "source-atop",
+			drawPos : "CENTER"
 		}));
 
 		//create pupil at center, refactor later
@@ -77,9 +80,8 @@ const eye = {
 		return pupilEntity;
 	},
 
-	setupEyelashes : function(eyelashGeometry, eyePos, eyeMesh){
+	setupEyelashes : function(numEyelashes, eyelashGeometry, eyePos, eyeMesh){
 		let eyelashEntities = [];
-		let numEyelashes = 10;
 		let eyelashSep = eyeMesh.path.length/numEyelashes; 
 
 		for(let i = 0; i < numEyelashes; i++){
@@ -90,7 +92,8 @@ const eye = {
 				geometry : eyelashGeometry,
 				zOrder : 3 + i,
 				center : true,
-				globalCompositeOperation : "destination-over"
+				globalCompositeOperation : "destination-over",
+				drawPos : "BOTTOM-CENTER"
 			}));
 
 			const tempOffset = eyelashEntity.getComponent("MESH").height/2;
@@ -109,7 +112,7 @@ const eye = {
 				rotation : angle * Math.PI / 180
 			}));
 
-			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 30}));
+			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 10}));
 
 			// eyeMesh.debugNormalAtPoint(point, normal);
 

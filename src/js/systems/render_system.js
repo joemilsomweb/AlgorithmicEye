@@ -24,7 +24,13 @@ const RenderSystem = {
 
 			context.translate(posComp.x, posComp.y);
 			context.rotate(rotation + noiseRotation);
-			context.translate(-meshComp.width/2, -meshComp.height/2);
+
+			if(meshComp.drawPos === "CENTER"){
+				context.translate(-meshComp.width/2, -meshComp.height/2);
+			}
+			else if(meshComp.drawPos === "BOTTOM-CENTER"){
+				context.translate(-meshComp.width/2, -meshComp.height + 5);
+			}
 
 			//draw image at center
 			//TODO refactor later

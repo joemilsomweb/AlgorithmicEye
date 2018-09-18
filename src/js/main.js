@@ -18,6 +18,9 @@ function generateEyes(){
 	PupilFactory.generate();
 	EyelashFactory.generate();
 
+	// let numEyelashes = Math.floor(Math.random() * 30);
+	let numEyelashes = 30;
+
 	// let centerEyeEntities = EyeAssemblage.create({
 	// 	eyeGeometry : OutlineFactory.get(), 
 	// 	pupilGeometry : PupilFactory.get(),
@@ -29,15 +32,15 @@ function generateEyes(){
 	// });
 
 
-	let topEyeEntities = EyeAssemblage.create({
-		eyeGeometry : OutlineFactory.get(), 
-		pupilGeometry : PupilFactory.get(),
-		eyelashGeometry : EyelashFactory.get(),
-		position : {
-			x : canvas.width/2 - 60,
-			y : canvas.height/2 - 300
-		}
-	});
+	// let topEyeEntities = EyeAssemblage.create({
+	// 	eyeGeometry : OutlineFactory.get(), 
+	// 	pupilGeometry : PupilFactory.get(),
+	// 	eyelashGeometry : EyelashFactory.get(),
+	// 	position : {
+	// 		x : canvas.width/2 - 60,
+	// 		y : canvas.height/2 - 300
+	// 	}
+	// });
 
 	//todo rename Eye Assemblage
 	//generate canvas within factories instead!! Better idea.... maybe?
@@ -48,7 +51,8 @@ function generateEyes(){
 		position : {
 			x : 200,
 			y : canvas.height/2
-		}
+		},
+		numEyelashes : numEyelashes
 	});
 
 	let rightEyeEntities = EyeAssemblage.create({
@@ -58,12 +62,14 @@ function generateEyes(){
 		position : {
 			x : 712,
 			y : canvas.height/2
-		}
+		},
+		numEyelashes : numEyelashes
 	});
 
 	
 
-	return leftEyeEntities.concat(rightEyeEntities).concat(topEyeEntities);
+	// return leftEyeEntities.concat(rightEyeEntities).concat(topEyeEntities);
+	return leftEyeEntities.concat(rightEyeEntities);
 	// return centerEyeEntities;
 }
 

@@ -1,6 +1,4 @@
 let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/eyelash_geometry"};
-generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/pupil_geometry"});
-generatorFunctions = generatorFunctions.concat({OUTLINE_DATA_LOADER?directory="data/outline_geometry"});
 
 const EyelashFactory = {
 	generate : function(){
