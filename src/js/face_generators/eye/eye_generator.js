@@ -8,6 +8,7 @@ import NoiseComponent from 'components/random_noise_component';
 import MouseFollowComponent from 'components/mouse_follow_component';
 import NoiseRotationComponent from 'components/noise_rotation_component';
 import ScaleComponent from 'components/scale_component';
+import BlinkComponent from 'components/blink_component';
 
 //can replace with shim....
 const paper = require("paper");
@@ -45,6 +46,8 @@ const eye = {
 				x : position.x,
 				y : position.y
 		}));
+
+		eyeEntity.addComponent(new BlinkComponent());
 
 		return eyeEntity;
 	},

@@ -1,10 +1,12 @@
 import Entity from 'entity';
 //todo change from the name eye assemblage
-import EyeAssemblage from "assemblages/eye"
+import EyeGenerator from "face_generators/eye/eye_generator";
+import MouthGenerator from "face_generators/mouth/mouth_generator";
 
-import OutlineFactory from 'eye/outline_types/outline_factory';
-import PupilFactory from 'eye/pupil_types/pupil_factory';
-import EyelashFactory from 'eye/eyelash_types/eyelash_factory';
+import OutlineFactory from 'face_generators/eye/outline_types/outline_factory';
+import PupilFactory from 'face_generators/eye/pupil_types/pupil_factory';
+import EyelashFactory from 'face_generators/eye/eyelash_types/eyelash_factory';
+import MouthFactory from 'face_generators/mouth/mouth_factory';
 
 //systems
 import RenderSystem from "systems/render_system";
@@ -19,29 +21,29 @@ function generateEyes(){
 	PupilFactory.generate();
 	EyelashFactory.generate();
 
-	// let numEyelashes = Math.floor(Math.random() * 30);
-	let numEyelashes = 30;
+	let numEyelashes = Math.floor(Math.random() * 20) + 4;
+	// let numEyelashes = 30;
 
 	//todo rename Eye Assemblage
 	//generate canvas within factories instead!! Better idea.... maybe?
-	let leftEyeEntities = EyeAssemblage.create({
+	let leftEyeEntities = EyeGenerator.create({
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
 		eyelashGeometry : EyelashFactory.get(),
 		position : {
-			x : 200,
-			y : canvas.height/2
+			x : 300,
+			y : canvas.height/2 - 200
 		},
 		numEyelashes : numEyelashes
 	});
 
-	let rightEyeEntities = EyeAssemblage.create({
+	let rightEyeEntities = EyeGenerator.create({
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
 		eyelashGeometry : EyelashFactory.get(),
 		position : {
-			x : 712,
-			y : canvas.height/2
+			x : 812,
+			y : canvas.height/2 - 200
 		},
 		numEyelashes : numEyelashes
 	});
@@ -49,8 +51,23 @@ function generateEyes(){
 	return leftEyeEntities.concat(rightEyeEntities);
 }
 
+function generateMouth(){
+	MouthFactory.generate();
+
+	return MouthGenerator.create({
+		mouthGeometry : MouthFactory.get(),
+		position : {
+			x : canvas.width/2 - 100,
+			y : 750
+		}
+	});
+}
+
 let currentFrame = 0;
 let entities = generateEyes();
+entities = entities.concat(generateMouth());
+
+setRandomBackground();
 
 function draw(time){
 
@@ -70,7 +87,13 @@ function draw(time){
 window.onkeypress = function(e){
 	if(e.keyCode == 32){
         entities = generateEyes();
+        entities = entities.concat(generateMouth());
+        setRandomBackground();
     }
+}
+
+function setRandomBackground(){
+	document.body.style.background = "rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," +Math.random() * 255 + ")" ;
 }
 
 draw();

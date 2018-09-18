@@ -1,5 +1,5 @@
 //pupils from manual code
-import RoundPupilType from 'eye/pupil_types/round_pupil_type';
+import RoundPupilType from 'face_generators/eye/pupil_types/round_pupil_type';
 
 let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/pupil_geometry"};
 

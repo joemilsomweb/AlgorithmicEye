@@ -34,9 +34,6 @@ const RenderSystem = {
 				context.translate(-meshComp.width/2, -meshComp.height + 5);
 			}
 
-
-			//draw image at center
-			//TODO refactor later
 			context.globalCompositeOperation = meshComp.globalCompositeOperation || "source-over"; 
 			context.drawImage(meshComp.canvas, 0, 0);
 		
