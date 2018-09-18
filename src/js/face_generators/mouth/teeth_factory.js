@@ -1,10 +1,10 @@
-let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/mouth_geometry"};
+let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/eyelash_geometry"};
 
-const MouthFactory = {
+const EyelashFactory = {
 	generate : function(){
 		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
 		if(Array.isArray(generator)){
-			const s = Math.random() * 200 + 200;
+			const s = Math.random() * 30 + 80;
 			
 			this.geometry = generator.map((point) => {
 				return {x : (point.x + 0.1) * s, y : (point.y + 0.1) * s}
@@ -21,5 +21,5 @@ const MouthFactory = {
 
 };
 
-export default MouthFactory;
+export default EyelashFactory;
 
