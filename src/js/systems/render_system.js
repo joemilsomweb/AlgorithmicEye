@@ -21,11 +21,16 @@ const RenderSystem = {
 
 			const rotation = entity.getComponent("ROTATION") ? entity.getComponent("ROTATION").rotation : 0; 
 			const scale = entity.getComponent("SCALE") ? entity.getComponent("SCALE").scale : 1; 
+			
+			//TODO find way of operating on multiple scale/position properties logically
+			const animInScale = entity.getComponent("ANIM_IN") ? entity.getComponent("ANIM_IN").scale : 1; 
+			
 			const noiseRotation = entity.getComponent("NOISE_ROTATION") ? entity.getComponent("NOISE_ROTATION").rotation : 0; 
 
 			context.translate(posComp.x, posComp.y);
 			context.rotate(rotation + noiseRotation);
 			context.scale(scale, scale);
+			context.scale(animInScale, animInScale);
 
 			if(meshComp.drawPos === "CENTER"){
 				context.translate(-meshComp.width/2, -meshComp.height/2);
@@ -35,9 +40,10 @@ const RenderSystem = {
 			}
 
 			context.globalCompositeOperation = meshComp.globalCompositeOperation || "source-over"; 
-			context.drawImage(meshComp.canvas, 0, 0);
-		
+			context.drawImage(meshComp.canvas, 0, 0);	
+			
 			context.restore();
+
 		}
 	},
 

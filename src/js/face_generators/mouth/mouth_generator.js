@@ -1,11 +1,11 @@
 import Entity from 'entity';
 import TeethFactory from "face_generators/mouth/teeth_factory";
 
-import MeshComponent from 'components/mesh_component';
-import PositionComponent from 'components/position_component';
-import RotationComponent from 'components/rotation_component';
+import MeshComponent from 'components/render/mesh_component';
+import PositionComponent from 'components/transform/position_component';
+import RotationComponent from 'components/transform/rotation_component';
 import NoiseRotationComponent from 'components/noise_rotation_component';
-import ScaleComponent from 'components/scale_component';
+import ScaleComponent from 'components/transform/scale_component';
 
 const paper = require("paper");
 

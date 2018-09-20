@@ -1,13 +1,14 @@
 import Entity from 'entity';
 
-import MeshComponent from 'components/mesh_component';
-import PositionComponent from 'components/position_component';
-import RotationComponent from 'components/rotation_component';
+import MeshComponent from 'components/render/mesh_component';
+import PositionComponent from 'components/transform/position_component';
+import RotationComponent from 'components/transform/rotation_component';
 import BoundsComponent from 'components/bounds_component';
 import NoiseComponent from 'components/random_noise_component';
 import MouseFollowComponent from 'components/mouse_follow_component';
 import NoiseRotationComponent from 'components/noise_rotation_component';
-import ScaleComponent from 'components/scale_component';
+import ScaleComponent from 'components/transform/scale_component';
+import AnimInComponent from 'components/transform/anim_in_component';
 import BlinkComponent from 'components/blink_component';
 
 //can replace with shim....
@@ -119,8 +120,7 @@ const eye = {
 			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 10}));
 
 			eyelashEntity.addComponent(new ScaleComponent({scale : Math.random() + 0.5}));
-
-			// eyeMesh.debugNormalAtPoint(point, normal);
+			eyelashEntity.addComponent(new AnimInComponent());
 
 			eyelashEntities.push(eyelashEntity);
 		}

@@ -11,6 +11,7 @@ import MouthFactory from 'face_generators/mouth/mouth_factory';
 //systems
 import RenderSystem from "systems/render_system";
 import UpdatePosSystem from "systems/update_pos_system";
+import AnimationSystem from "systems/animation_system";
 import WebglPostProcessSystem from "systems/webgl_postprocess_system";
 
 const canvas = document.getElementById("main_canvas");
@@ -24,7 +25,6 @@ function generateEyes(){
 	let numEyelashes = Math.floor(Math.random() * 20) + 4;
 	// let numEyelashes = 30;
 
-	//todo rename Eye Assemblage
 	//generate canvas within factories instead!! Better idea.... maybe?
 	let leftEyeEntities = EyeGenerator.create({
 		eyeGeometry : OutlineFactory.get(), 
@@ -76,6 +76,7 @@ function draw(time){
 	//		entities = generateEyes()
 	// }
 
+	AnimationSystem.update(entities);
 	UpdatePosSystem.update(entities);
 	RenderSystem.render(canvas, entities);
 
