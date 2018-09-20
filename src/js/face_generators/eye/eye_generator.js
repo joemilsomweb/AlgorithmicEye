@@ -67,7 +67,7 @@ const eye = {
 		//create pupil at center, refactor later
 		pupilEntity.addComponent(new PositionComponent({
 				x : position.x,
-				y : position.y + 100 
+				y : position.y 
 		}));
 
 		//need to refactor here

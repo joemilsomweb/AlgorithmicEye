@@ -6,6 +6,7 @@ import PositionComponent from 'components/transform/position_component';
 import RotationComponent from 'components/transform/rotation_component';
 import NoiseRotationComponent from 'components/noise_rotation_component';
 import ScaleComponent from 'components/transform/scale_component';
+import AnimInComponent from 'components/transform/anim_in_component';
 
 const paper = require("paper");
 
@@ -25,6 +26,9 @@ const mouth = {
 				x : options.position.x,
 				y : options.position.y
 		}));
+
+		// mouthEntity.addComponent(new AnimInComponent());
+
 
 		TeethFactory.generate();
 
@@ -73,6 +77,7 @@ const mouth = {
 			teethEntity.addComponent(new NoiseRotationComponent({scale : 3}));
 
 			teethEntity.addComponent(new ScaleComponent({scale :  0.5}));
+			teethEntity.addComponent(new AnimInComponent());
 
 			teethEntities.push(teethEntity);
 		}
