@@ -1,5 +1,7 @@
 import Entity from 'entity';
 import TeethFactory from "face_generators/mouth/teeth_factory";
+import MoustacheFactory from "face_generators/mouth/moustache_factory";
+import FacialHairFactory from "face_generators/mouth/facial_hair_factory";
 
 import MeshComponent from 'components/render/mesh_component';
 import PositionComponent from 'components/transform/position_component';
@@ -27,17 +29,18 @@ const mouth = {
 				y : options.position.y
 		}));
 
-		// mouthEntity.addComponent(new AnimInComponent());
-
-
 		TeethFactory.generate();
 
 		const numTeeth = Math.floor(Math.random() * 30); 
 		let teethEntities = this.setupTeeth(numTeeth, TeethFactory.get(), mouthEntity.getComponent("POSITION"),  mouthEntity.getComponent("MESH"));
+
+		// let moustacheEntities = this.setupFacialHair(options.position);
+
 		return [mouthEntity].concat(teethEntities);
 	},
 
 	setupTeeth : function(numTeeth, teethGeometry, mouthPos, mouthMesh){
+
 		let teethEntities = [];
 		let teethSep = mouthMesh.path.length/numTeeth; 
 
@@ -83,6 +86,24 @@ const mouth = {
 		}
 
 		return teethEntities;
+	},
+
+	setupFacialHair : function(position){
+		MoustacheFactory.generate();
+		FacialHairFactory.generate();
+
+		let moustacheHairEntities = [];
+
+		const numHairs = Math.floor(Math.random() * 80); 
+
+		for(let i = 0; i < numHairs; i++){
+			let facialHairEntity = new Entity();
+			// let point = MoustacheFactory.get().path.getPointAt(teethSep * i);
+
+
+			moustacheHairEntities.push(facialHairEntity);
+		}
+
 	}
 
 }

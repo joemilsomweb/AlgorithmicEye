@@ -98,6 +98,7 @@ const eye = {
 				zOrder : 3 + i,
 				center : true,
 				globalCompositeOperation : "destination-over",
+				// globalCompositeOperation : "add",
 				drawPos : "BOTTOM-CENTER"
 			}));
 
