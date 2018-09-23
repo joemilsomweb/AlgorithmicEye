@@ -10,6 +10,8 @@ const RenderSystem = {
 
 		let drawableEntities = [];
 
+		//code will be removed/changed when threejs is going to be used 
+
 		for(var entity of entities){
 			//get position component
 			//TODO create check for components first

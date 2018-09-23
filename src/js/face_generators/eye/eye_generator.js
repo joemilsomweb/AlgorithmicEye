@@ -1,5 +1,7 @@
 import Entity from 'entity';
 
+import Texture from 'common/texture';
+
 import MeshComponent from 'components/render/mesh_component';
 import PositionComponent from 'components/transform/position_component';
 import RotationComponent from 'components/transform/rotation_component';
@@ -34,6 +36,8 @@ const eye = {
 
 	setupEye : function(position, eyeGeometry){
 		let eyeEntity = new Entity();
+
+
 
 		eyeEntity.addComponent(new MeshComponent({
 			geometry : eyeGeometry,

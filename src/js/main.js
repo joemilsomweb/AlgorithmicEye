@@ -10,12 +10,14 @@ import MouthFactory from 'face_generators/mouth/mouth_factory';
 
 //systems
 import RenderSystem from "systems/render_system";
+import ThreeRenderSystem from "systems/three_render_system";
 import UpdatePosSystem from "systems/update_pos_system";
 import AnimationSystem from "systems/animation_system";
 import WebglPostProcessSystem from "systems/webgl_postprocess_system";
 
-const canvas = document.getElementById("main_canvas");
+import * as Three from "three";
 
+const canvas = document.getElementById("main_canvas");
 
 function generateEyes(){
 	OutlineFactory.generate();
@@ -23,9 +25,7 @@ function generateEyes(){
 	EyelashFactory.generate();
 
 	let numEyelashes = Math.floor(Math.random() * 20) + 4;
-	// let numEyelashes = 30;
 
-	//generate canvas within factories instead!! Better idea.... maybe?
 	let leftEyeEntities = EyeGenerator.create({
 		eyeGeometry : OutlineFactory.get(), 
 		pupilGeometry : PupilFactory.get(),
@@ -69,6 +69,16 @@ entities = entities.concat(generateMouth());
 
 setRandomBackground();
 
+
+//todo create function here
+const width = canvas.width;
+const height = canvas.height;
+
+let ThreeScene = new Three.Scene();
+let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 1, 1000);
+// ThreeScene.add(ThreeCamera);
+let ThreeRenderer = new Three.WebGLRenderer();
+
 function draw(time){
 
 	// //generate new eyes every 80 frames
@@ -78,7 +88,8 @@ function draw(time){
 
 	AnimationSystem.update(entities);
 	UpdatePosSystem.update(entities);
-	RenderSystem.render(canvas, entities);
+	// RenderSystem.render(canvas, entities);
+	RenderSystem.render(entities, ThreeRenderer, ThreeScene, ThreeCamera);
 
 	currentFrame++;
 	requestAnimationFrame(draw);

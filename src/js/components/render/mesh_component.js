@@ -1,10 +1,9 @@
-import BoundsCalculator from "helper/bounds_calculator";
-
 //would be nice to have it as an import
 let paper = require("paper");
+import * as Three from "three";
 
-//Class that contains the geometry, calculates the bounds based on this geometry
-//as well as creates a canvas that fits the geometry for efficiency
+//component that holds mesh data
+//also holds shader/texture for operation on that data.
 class MeshComponent{
 	
 	constructor(options){
@@ -19,7 +18,19 @@ class MeshComponent{
 
 		this.drawGeometry();
 
+		//new code
+		this.createMesh();
 	}
+
+	//todo: add custom shaders
+	createMesh(){
+		const geometry = new Three.PlaneBufferGeometry(1, 1, 1);
+		this.mesh = new Three.MeshBasicMaterial({
+			color : 0xff0000
+			//map: my new Texture class
+		});
+		// this.shader = new 
+	}	
 
 	//good or bad?
 	createCanvas(){
