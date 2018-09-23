@@ -1,5 +1,5 @@
 import Entity from 'entity';
-//todo change from the name eye assemblage
+
 import EyeGenerator from "face_generators/eye/eye_generator";
 import MouthGenerator from "face_generators/mouth/mouth_generator";
 
@@ -51,21 +51,21 @@ function generateEyes(){
 	return leftEyeEntities.concat(rightEyeEntities);
 }
 
-function generateMouth(){
-	MouthFactory.generate();
+// function generateMouth(){
+// 	MouthFactory.generate();
 
-	return MouthGenerator.create({
-		mouthGeometry : MouthFactory.get(),
-		position : {
-			x : canvas.width/2 - 100,
-			y : 750
-		}
-	});
-}
+// 	return MouthGenerator.create({
+// 		mouthGeometry : MouthFactory.get(),
+// 		position : {
+// 			x : canvas.width/2 - 100,
+// 			y : 750
+// 		}
+// 	});
+// }
 
 let currentFrame = 0;
 let entities = generateEyes();
-entities = entities.concat(generateMouth());
+// entities = entities.concat(generateMouth());
 
 setRandomBackground();
 
@@ -76,7 +76,6 @@ const height = canvas.height;
 
 let ThreeScene = new Three.Scene();
 let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 1, 1000);
-// var ThreeCamera = new Three.PerspectiveCamera( 75, width / height, 0.1, 1000 );
 let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true});
 
 function draw(time){
@@ -99,7 +98,7 @@ function draw(time){
 window.onkeypress = function(e){
 	if(e.keyCode == 32){
         entities = generateEyes();
-        entities = entities.concat(generateMouth());
+        // entities = entities.concat(generateMouth());
         setRandomBackground();
     }
 }

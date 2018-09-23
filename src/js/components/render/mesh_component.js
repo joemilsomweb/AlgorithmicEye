@@ -25,11 +25,7 @@ class MeshComponent{
 		});
 
 		this.mesh = new Three.Mesh(this.geometry, this.material);
-
-		// this.mesh.position.x = 2;
-		// this.mesh.position.y = 0;
 		this.mesh.position.z = -1;
-		// this.shader = new 
 	}	
 }
 

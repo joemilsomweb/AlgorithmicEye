@@ -1,5 +1,7 @@
 class Shader{
-	
 
-	
+	update(){
+
+	}	
+
 }
