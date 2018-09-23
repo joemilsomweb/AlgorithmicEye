@@ -10,6 +10,12 @@ const ThreeRenderSystem = {
 				meshComp.mesh.position.x = posComp.x/ 10;
 				meshComp.mesh.position.y = posComp.y/ 10;
 
+				const matComp = entity.getComponent("MATERIAL");
+
+				meshComp.mesh.material = matComp.material.material;
+				// debugger
+
+				// debugger
 				//todo dont add every frame!!
 				threeScene.add(meshComp.mesh);
 			}			

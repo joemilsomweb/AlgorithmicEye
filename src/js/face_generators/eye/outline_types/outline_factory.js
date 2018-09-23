@@ -20,30 +20,22 @@ const OutlineFactory = {
 		else{			
 			this.geometry = generator.generateOutline();
 		}
-	},
 
-	get : function(){
-		return this.geometry;
-	},
-
-	getGeometry : function(){
-		return this.geometry;
+		this.createTexture();
 	},
 
 	createTexture(){
-
+		this.texture = new Texture(this.geometry);
+		this.path = this.texture.path; //path generated from paper context
 	},
 
-	createPath(){
-
+	getCurrentPath(){
+		return this.path;
 	},
 
-	getTexture(){
-
-	},
-
-	getPath(){
-
+	getCurrentTexture(){
+		//rename.... for sure bro
+		return this.texture.canvas;
 	}
 
 };

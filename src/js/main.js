@@ -27,7 +27,7 @@ function generateEyes(){
 	let numEyelashes = Math.floor(Math.random() * 20) + 4;
 
 	let leftEyeEntities = EyeGenerator.create({
-		eyeGeometry : OutlineFactory.get(), 
+		eyeGeometry : OutlineFactory, 
 		pupilGeometry : PupilFactory.get(),
 		eyelashGeometry : EyelashFactory.get(),
 		position : {
@@ -38,7 +38,7 @@ function generateEyes(){
 	});
 
 	let rightEyeEntities = EyeGenerator.create({
-		eyeGeometry : OutlineFactory.get(), 
+		eyeGeometry : OutlineFactory, 
 		pupilGeometry : PupilFactory.get(),
 		eyelashGeometry : EyelashFactory.get(),
 		position : {

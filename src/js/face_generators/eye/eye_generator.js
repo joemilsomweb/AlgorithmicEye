@@ -12,9 +12,15 @@ import NoiseRotationComponent from 'components/noise_rotation_component';
 import ScaleComponent from 'components/transform/scale_component';
 import AnimInComponent from 'components/transform/anim_in_component';
 import BlinkComponent from 'components/blink_component';
+import MaterialComponent from 'components/render/material_component';
+
+
+//TEMP FOR TEST
+import ShaderFactory from "common/shader_factory";
 
 //can replace with shim....
 const paper = require("paper");
+
 
 //todo place eye at center point...
 const eye = {
@@ -34,25 +40,19 @@ const eye = {
 		return [eyeEntity];
 	},
 
-	setupEye : function(position, eyeGeometry){
+	setupEye : function(position, outlineFactory){
 		let eyeEntity = new Entity();
 
+		eyeEntity.addComponent(new MeshComponent({}));
 
+		ShaderFactory.generate(outlineFactory.getCurrentTexture());
 
-		eyeEntity.addComponent(new MeshComponent({
-			geometry : eyeGeometry,
-			zOrder : 0,
-			center : true,
-			globalCompositeOperation : "source-over",
-			drawPos : "CENTER"
-		}));
+		eyeEntity.addComponent(new MaterialComponent({material : ShaderFactory.get()}));
 
 		eyeEntity.addComponent(new PositionComponent({
 				x : position.x,
 				y : position.y
 		}));
-
-		eyeEntity.addComponent(new BlinkComponent());
 
 		return eyeEntity;
 	},

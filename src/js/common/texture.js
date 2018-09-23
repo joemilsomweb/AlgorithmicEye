@@ -1,8 +1,10 @@
-//class that 
+const paper = require("paper");
+import * as Three from "three";
+
 class Texture{
 
-	constructor(options){
-		this.geometry = options.geometry;
+	constructor(geometry){
+		this.geometry = geometry;
 
 		this.createCanvas();
 		this.drawGeometry();
@@ -33,7 +35,7 @@ class Texture{
 
 		this.canvas.width = this.width = this.path.bounds.width;
 		this.canvas.height = this.height = this.path.bounds.height;
-		this.bounds = this.path.bounds;
+		// this.bounds = this.path.bounds;
 	}
 
 	//****DEBUG add dat_gui functionality****/
@@ -61,3 +63,5 @@ class Texture{
 	}
 
 }
+
+export default Texture;
