@@ -11,7 +11,7 @@ const UpdatePosSystem = {
 
 
 			if(boundsComp){
-				let isInsidePath = boundsComp.checkBounds(posComp.x, posComp.y);
+				// let isInsidePath = boundsComp.checkBounds(posComp.x, posComp.y);
 			}
 
 			if(mouseFollowComp){

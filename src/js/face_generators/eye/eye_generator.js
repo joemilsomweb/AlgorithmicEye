@@ -22,14 +22,14 @@ const eye = {
 		let eyeEntity = this.setupEye(options.position, options.eyeGeometry);
 		let pupilEntity = this.setupPupil(options.position, options.pupilGeometry, eyeEntity.getComponent("MESH"));
 
-		let eyeLashEntities = this.setupEyelashes(
-			options.numEyelashes,
-			options.eyelashGeometry, 
-			eyeEntity.getComponent("POSITION"),  
-			eyeEntity.getComponent("MESH")
-		);
+		// let eyeLashEntities = this.setupEyelashes(
+		// 	options.numEyelashes,
+		// 	options.eyelashGeometry, 
+		// 	eyeEntity.getComponent("POSITION"),  
+		// 	eyeEntity.getComponent("MESH")
+		// );
 
-		return [eyeEntity, pupilEntity].concat(eyeLashEntities);
+		return [eyeEntity, pupilEntity];//.concat(eyeLashEntities);
 		// return [eyeEntity].concat(eyeLashEntities);
 		// return [eyeEntity];
 	},

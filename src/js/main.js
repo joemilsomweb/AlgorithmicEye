@@ -76,8 +76,8 @@ const height = canvas.height;
 
 let ThreeScene = new Three.Scene();
 let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 1, 1000);
-// ThreeScene.add(ThreeCamera);
-let ThreeRenderer = new Three.WebGLRenderer();
+// var ThreeCamera = new Three.PerspectiveCamera( 75, width / height, 0.1, 1000 );
+let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true});
 
 function draw(time){
 
@@ -89,7 +89,7 @@ function draw(time){
 	AnimationSystem.update(entities);
 	UpdatePosSystem.update(entities);
 	// RenderSystem.render(canvas, entities);
-	RenderSystem.render(entities, ThreeRenderer, ThreeScene, ThreeCamera);
+	ThreeRenderSystem.render(entities, ThreeRenderer, ThreeScene, ThreeCamera);
 
 	currentFrame++;
 	requestAnimationFrame(draw);

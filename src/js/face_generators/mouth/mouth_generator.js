@@ -32,11 +32,11 @@ const mouth = {
 		TeethFactory.generate();
 
 		const numTeeth = Math.floor(Math.random() * 30); 
-		let teethEntities = this.setupTeeth(numTeeth, TeethFactory.get(), mouthEntity.getComponent("POSITION"),  mouthEntity.getComponent("MESH"));
+		// let teethEntities = this.setupTeeth(numTeeth, TeethFactory.get(), mouthEntity.getComponent("POSITION"),  mouthEntity.getComponent("MESH"));
 
 		// let moustacheEntities = this.setupFacialHair(options.position);
 
-		return [mouthEntity].concat(teethEntities);
+		return [mouthEntity];//.concat(teethEntities);
 	},
 
 	setupTeeth : function(numTeeth, teethGeometry, mouthPos, mouthMesh){

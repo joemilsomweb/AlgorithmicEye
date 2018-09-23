@@ -36,5 +36,28 @@ class Texture{
 		this.bounds = this.path.bounds;
 	}
 
+	//****DEBUG add dat_gui functionality****/
+
+	debugNormalAtPoint(point, normal){
+		this.paperScope.activate();
+
+		const path = new this.paperScope.Path.Circle({
+		    center: [point.x, point.y],
+		    radius: 10,
+		    fillColor: 'red'
+		});
+
+		const path2 = new this.paperScope.Path.Circle({
+		    center: [point.x - normal.x * 20, point.y - normal.y * 20],
+		    radius: 10,
+		    fillColor: 'green'
+		});
+	}
+
+	debugBounds(){
+		this.paperScope.activate();
+		this.debugPath = new this.paperScope.Path.Rectangle(new this.paperScope.Point(0, 0), new this.paperScope.Size(this.canvas.width, this.canvas.height));
+		this.debugPath.strokeColor = new this.paperScope.Color(0, 0, 0);
+	}
 
 }
