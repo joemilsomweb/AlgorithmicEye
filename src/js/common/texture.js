@@ -27,7 +27,7 @@ class Texture{
 		this.path.simplify();
 
 		// this.path.fillColor = this.color;
-		this.path.fillColor = "black";
+		this.path.fillColor = "white";
 
 		//set path position to 0
 		this.path.position.x -= this.path.bounds.x;

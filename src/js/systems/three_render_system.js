@@ -13,6 +13,9 @@ const ThreeRenderSystem = {
 				const matComp = entity.getComponent("MATERIAL");
 
 				meshComp.mesh.material = matComp.material.material;
+				//find fix for this
+				meshComp.mesh.material.map.needsUpdate = true;
+
 				// debugger
 
 				// debugger
