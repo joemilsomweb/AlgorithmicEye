@@ -26,7 +26,6 @@ class Texture{
 		this.path.smooth();
 		this.path.simplify();
 
-		// this.path.fillColor = this.color;
 		this.path.fillColor = "white";
 
 		//set path position to 0

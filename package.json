@@ -10,7 +10,8 @@
     "mini-css-extract-plugin": "^0.4.2",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.7"
+    "webpack-dev-server": "^3.1.7",
+    "webpack-glsl-loader": "^1.0.1"
   },
   "scripts": {
     "develop": "webpack --mode development --watch",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "paper": "^0.11.5",
-    "three": "^0.96.0"
+    "three": "^0.96.0",
+    "underscore": "^1.9.1"
   }
 }

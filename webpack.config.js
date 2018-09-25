@@ -45,7 +45,12 @@ module.exports = {
       {
         test : /\.js$/,
         use : "outline_data_loader"
-      }
+      },
+      {
+        test : /\.glsl$/,
+        use : "webpack-glsl-loader"
+      },
+
     ]
   },
   resolveLoader: {

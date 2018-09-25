@@ -3,11 +3,11 @@ import Entity from 'entity';
 import EyeGenerator from "face_generators/eye/eye_generator";
 import MouthGenerator from "face_generators/mouth/mouth_generator";
 
-import OutlineFactory from 'face_generators/eye/outline_types/outline_factory';
-import PupilFactory from 'face_generators/eye/pupil_types/pupil_factory';
-import EyelashFactory from 'face_generators/eye/eyelash_types/eyelash_factory';
+import EyeballGenerator from 'face_generators/eye/2D/eyeball_generator_2d';
+import PupilGenerator from 'face_generators/eye/2D/pupil_generator_2d';
+import EyelashFactory from 'face_generators/eye/eyelash_factory';
 import MouthFactory from 'face_generators/mouth/mouth_factory';
-
+  
 //systems
 import RenderSystem from "systems/render_system";
 import ThreeRenderSystem from "systems/three_render_system";
@@ -20,30 +20,32 @@ import * as Three from "three";
 const canvas = document.getElementById("main_canvas");
 
 function generateEyes(){
-	OutlineFactory.generate();
-	PupilFactory.generate();
+	EyeballGenerator.generate();
+	PupilGenerator.generate();
+
+	//to rename
 	EyelashFactory.generate();
 
 	let numEyelashes = Math.floor(Math.random() * 20) + 4;
 
 	let leftEyeEntities = EyeGenerator.create({
-		eyeGeometry : OutlineFactory, 
-		pupilGeometry : PupilFactory.get(),
+		eyeballGenerator : EyeballGenerator, 
+		pupilGenerator : PupilGenerator,
 		eyelashGeometry : EyelashFactory.get(),
 		position : {
-			x : 300,
-			y : canvas.height/2 - 200
+			x : -300,
+			y : 0
 		},
 		numEyelashes : numEyelashes
 	});
 
 	let rightEyeEntities = EyeGenerator.create({
-		eyeGeometry : OutlineFactory, 
-		pupilGeometry : PupilFactory.get(),
+		eyeballGenerator : EyeballGenerator, 
+		pupilGenerator : PupilGenerator,
 		eyelashGeometry : EyelashFactory.get(),
 		position : {
-			x : 812,
-			y : canvas.height/2 - 200
+			x : 300,
+			y : 0
 		},
 		numEyelashes : numEyelashes
 	});
@@ -76,7 +78,7 @@ const height = canvas.height;
 
 let ThreeScene = new Three.Scene();
 let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 1, 1000);
-let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true});
+let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true, antialias : true});
 
 function draw(time){
 
@@ -87,7 +89,6 @@ function draw(time){
 
 	AnimationSystem.update(entities);
 	UpdatePosSystem.update(entities);
-	// RenderSystem.render(canvas, entities);
 	ThreeRenderSystem.render(entities, ThreeRenderer, ThreeScene, ThreeCamera);
 
 	currentFrame++;

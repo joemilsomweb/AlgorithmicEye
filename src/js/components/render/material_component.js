@@ -5,12 +5,12 @@ import * as Three from "three";
 class MaterialComponent{
 	
 	constructor(options){
-		this.material = options.material;		
-		// this.texture = options.texture;
+		this.shader = options.shader;
+		this.material = this.shader.material;		
 	}
 
 	update(){
-		this.material.update();
+		this.shader.update();
 	}
 	
 }

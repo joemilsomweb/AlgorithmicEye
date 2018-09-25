@@ -1,3 +1,6 @@
+//todo rename this class. It is not a Generator!! the generators are 
+//the outline factorys. These just assemble the entities
+
 import Entity from 'entity';
 
 import Texture from 'common/texture';
@@ -14,10 +17,6 @@ import AnimInComponent from 'components/transform/anim_in_component';
 import BlinkComponent from 'components/blink_component';
 import MaterialComponent from 'components/render/material_component';
 
-
-//TEMP FOR TEST
-import ShaderFactory from "common/shader_factory";
-
 //can replace with shim....
 const paper = require("paper");
 
@@ -25,8 +24,8 @@ const paper = require("paper");
 //todo place eye at center point...
 const eye = {
 	create : function(options){
-		let eyeEntity = this.setupEye(options.position, options.eyeGeometry);
-		// let pupilEntity = this.setupPupil(options.position, options.pupilGeometry, eyeEntity.getComponent("MESH"));
+		let eyeEntity = this.setupEye(options.position, options.eyeballGenerator);
+		let pupilEntity = this.setupPupil(options.position, options.pupilGenerator);
 
 		// let eyeLashEntities = this.setupEyelashes(
 		// 	options.numEyelashes,
@@ -35,20 +34,17 @@ const eye = {
 		// 	eyeEntity.getComponent("MESH")
 		// );
 
-		// return [eyeEntity, pupilEntity];//.concat(eyeLashEntities);
+		return [eyeEntity, pupilEntity];
 		// return [eyeEntity].concat(eyeLashEntities);
-		return [eyeEntity];
+		// return [eyeEntity];
 	},
 
-	setupEye : function(position, outlineFactory){
+	setupEye : function(position, eyeballGenerator){
 		let eyeEntity = new Entity();
 
-		eyeEntity.addComponent(new MeshComponent({}));
-
-		ShaderFactory.generate(outlineFactory.getCurrentTexture());
-
-		eyeEntity.addComponent(new MaterialComponent({material : ShaderFactory.get()}));
-
+		eyeEntity.addComponent(new MeshComponent({mesh : eyeballGenerator.getCurrentMesh()}));
+		//not sure if i need material component now...
+		eyeEntity.addComponent(new MaterialComponent({shader : eyeballGenerator.getCurrentShader()}));
 		eyeEntity.addComponent(new PositionComponent({
 				x : position.x,
 				y : position.y
@@ -57,16 +53,11 @@ const eye = {
 		return eyeEntity;
 	},
 
-	setupPupil : function(position, pupilGeometry, eyeMesh){
+	setupPupil : function(position, pupilGenerator){
 		let pupilEntity = new Entity();
 
-		pupilEntity.addComponent(new MeshComponent({
-			geometry : pupilGeometry,
-			zOrder : 2,
-			center : true,
-			globalCompositeOperation : "source-atop",
-			drawPos : "CENTER"
-		}));
+		pupilEntity.addComponent(new MeshComponent({mesh : pupilGenerator.getCurrentMesh()}));
+		pupilEntity.addComponent(new MaterialComponent({shader : pupilGenerator.getCurrentShader()}));
 
 		//create pupil at center, refactor later
 		pupilEntity.addComponent(new PositionComponent({
@@ -74,10 +65,10 @@ const eye = {
 				y : position.y 
 		}));
 
-		//need to refactor here
-		pupilEntity.addComponent(new BoundsComponent({
-			boundsPath : eyeMesh.path
-		}));
+		// //need to refactor here
+		// pupilEntity.addComponent(new BoundsComponent({
+		// 	boundsPath : eyeMesh.path
+		// }));
 		pupilEntity.addComponent(new NoiseRotationComponent({
 			scale : 10
 		}));
