@@ -34,6 +34,8 @@ class Texture{
 
 		this.canvas.width = this.width = this.path.bounds.width;
 		this.canvas.height = this.height = this.path.bounds.height;
+
+		console.log(this.canvas.width, this.canvas.height);
 		// this.bounds = this.path.bounds;
 	}
 

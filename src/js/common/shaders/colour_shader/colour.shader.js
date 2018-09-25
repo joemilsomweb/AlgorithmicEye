@@ -9,8 +9,10 @@ class ColourShader{
 		
 		//for now. remove annoying resizing junk
 		//fixes disappearing texture too!
-		texture.width = 512;
-		texture.height = 512;
+		texture.width = Math.pow(2, Math.round(Math.log(texture.width) / Math.log(2)));
+		texture.height = Math.pow(2, Math.round(Math.log(texture.height) / Math.log(2)));
+
+
 
 		this.material = new Three.ShaderMaterial({
 			uniforms : {
@@ -22,7 +24,10 @@ class ColourShader{
 				}
 			},
 			vertexShader : vertShader,
-			fragmentShader : fragShader
+			fragmentShader : fragShader,
+			depthWrite : false,
+			// depthTest : false,
+			transparent : true
 		});
 
 		this.debugTexture(texture);
