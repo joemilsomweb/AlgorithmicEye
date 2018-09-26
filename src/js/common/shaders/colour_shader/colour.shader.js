@@ -30,7 +30,15 @@ class ColourShader{
 			transparent : true
 		});
 
-		this.debugTexture(texture);
+		//set blending via components.
+		//use system that is triggered on new
+		//useful for composite operation like effects
+		this.material.blending = Three.CustomBlending;
+		this.material.blendEquation = Three.AddEquation;
+		this.material.blendSrc = Three.SrcAlphaFactor;
+		this.material.blendDst = Three.OneMinusSrcAlphaFactor;
+
+		// this.debugTexture(texture);
 	}
 
 	update(){

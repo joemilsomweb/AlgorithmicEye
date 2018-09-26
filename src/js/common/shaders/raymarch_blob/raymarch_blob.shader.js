@@ -18,6 +18,11 @@ class ColourShader{
 			vertexShader : vertShader,
 			fragmentShader : fragShader
 		});
+
+		this.material.blending = Three.CustomBlending;
+		this.material.blendEquation = Three.AddEquation;
+		this.material.blendSrc = Three.SrcAlphaFactor;
+		this.material.blendDst = Three.OneMinusSrcAlphaFactor;
 	}
 
 	update(){
