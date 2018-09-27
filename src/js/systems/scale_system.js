@@ -10,8 +10,6 @@ const ScaleSystem = {
 
 			entity.getComponent("MESH").mesh.scale.x = animInScale * scale;
 			entity.getComponent("MESH").mesh.scale.y = animInScale * scale;
-
-			// console.log(animInScale * scale);
 		}
 	}
 

@@ -19,6 +19,7 @@ import MaterialComponent from 'components/render/material_component';
 
 //can replace with shim....
 const paper = require("paper");
+import * as Three from "three-full";
 
 
 //todo place eye at center point...
@@ -44,11 +45,15 @@ const eye = {
 		let eyeEntity = new Entity();
 
 		eyeEntity.addComponent(new MeshComponent({mesh : eyeballGenerator.getCurrentMesh()}));
+		
 		//hmmm get current shader is a bit bad. maybe each generator has its own shader factory
-		eyeEntity.addComponent(new MaterialComponent({shader : new (eyeballGenerator.getCurrentShader())}));
+		eyeEntity.addComponent(new MaterialComponent({
+			shader : new (eyeballGenerator.getCurrentShader())
+		}));
 		eyeEntity.addComponent(new PositionComponent({
 				x : position.x,
-				y : position.y
+				y : position.y,
+				z : -2
 		}));
 
 		return eyeEntity;
@@ -58,12 +63,20 @@ const eye = {
 		let pupilEntity = new Entity();
 
 		pupilEntity.addComponent(new MeshComponent({mesh : pupilGenerator.getCurrentMesh()}));
-		pupilEntity.addComponent(new MaterialComponent({shader : new (pupilGenerator.getCurrentShader())}));
+		pupilEntity.addComponent(new MaterialComponent({
+			shader : new (pupilGenerator.getCurrentShader()),
+			blendMode : {
+				equation : Three.AddEquation,
+				src : Three.DstAlphaFactor,
+				dest : Three.OneMinusSrcAlphaFactor
+			}
+		}));
 
 		//create pupil at center, refactor later
 		pupilEntity.addComponent(new PositionComponent({
 				x : position.x,
-				y : position.y 
+				y : position.y,
+				z : -1
 		}));
 
 		// //need to refactor here
@@ -91,15 +104,20 @@ const eye = {
 			let point = eyePath.getPointAt(eyelashSep * i);
 			
 			eyelashEntity.addComponent(new MeshComponent({mesh : eyelashGenerator.getCurrentMesh()}));
-			eyelashEntity.addComponent(new MaterialComponent({shader : new (eyelashGenerator.getCurrentShader())}));
-
-
-			eyelashEntity.getComponent("MESH").mesh.renderOrder = -10;
+			eyelashEntity.addComponent(new MaterialComponent({
+				shader : new (eyelashGenerator.getCurrentShader()),
+				blendMode : {
+					equation : Three.AddEquation,
+					src : Three.OneMinusDstAlphaFactor,
+					dest : Three.DstAlphaFactor
+				}
+			}));
 
 			//todo try to refactor this
 			eyelashEntity.addComponent(new PositionComponent({
 				x : point.x + position.x - eyePath.bounds.width/2,//- eyeMesh.width/2,
-				y : eyePath.bounds.height - point.y + position.y - eyePath.bounds.height/2
+				y : eyePath.bounds.height - point.y + position.y - eyePath.bounds.height/2,
+				z : 0
 			}));
 
 			//get normal vector

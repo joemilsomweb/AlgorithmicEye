@@ -6,7 +6,14 @@ class MaterialComponent{
 	
 	constructor(options){
 		this.shader = options.shader;
-		this.material = this.shader.material;		
+		this.material = this.shader.material;	
+
+		if(options.blendMode){
+			this.material.blending = Three.CustomBlending;
+			this.material.blendEquation = options.blendMode.equation;
+			this.material.blendSrc = options.blendMode.src;
+			this.material.blendDst = options.blendMode.dest;
+		}	
 	}
 
 	update(){
