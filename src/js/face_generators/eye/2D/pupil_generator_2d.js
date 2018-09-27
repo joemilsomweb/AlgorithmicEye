@@ -48,6 +48,7 @@ const PupilGenerator = {
 	},
 
 	getCurrentPath(){
+
 		return this.path;
 	},
 

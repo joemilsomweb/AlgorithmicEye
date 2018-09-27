@@ -11,8 +11,11 @@ const ShaderFactory = {
 	generate : function(texture){
 		const shader = shaderList[Math.floor(Math.random()*shaderList.length)];
 
-		this.shader = new shader(texture);
-		// this.shader = shader.bind(null, texture);
+		//TEMPORARY! BAD TO STORE THIS HERE
+		this.texture = texture;
+		// this.shader = new shader(texture);
+		// this.shader = shader;
+		this.shader = shader.bind(null, texture);
 	},
 
 	//return new shader type??

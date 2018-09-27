@@ -27,15 +27,16 @@ const eye = {
 		let eyeEntity = this.setupEye(options.position, options.eyeballGenerator);
 		let pupilEntity = this.setupPupil(options.position, options.pupilGenerator);
 
-		// let eyeLashEntities = this.setupEyelashes(
-		// 	options.numEyelashes,
-		// 	options.eyelashGeometry, 
-		// 	eyeEntity.getComponent("POSITION"),  
-		// 	eyeEntity.getComponent("MESH")
-		// );
+		let eyeLashEntities = this.setupEyelashes(
+			options.position,	
+			options.eyelashGenerator, 
+			options.numEyelashes, 
+			eyeEntity.getComponent("MESH"),
+			options.eyeballGenerator.getCurrentPath()
+		);
 
-		return [eyeEntity, pupilEntity];
-		// return [eyeEntity].concat(eyeLashEntities);
+		// return [eyeEntity, pupilEntity];
+		return [eyeEntity, pupilEntity].concat(eyeLashEntities);
 		// return [eyeEntity];
 	},
 
@@ -43,8 +44,8 @@ const eye = {
 		let eyeEntity = new Entity();
 
 		eyeEntity.addComponent(new MeshComponent({mesh : eyeballGenerator.getCurrentMesh()}));
-		//not sure if i need material component now...
-		eyeEntity.addComponent(new MaterialComponent({shader : eyeballGenerator.getCurrentShader()}));
+		//hmmm get current shader is a bit bad. maybe each generator has its own shader factory
+		eyeEntity.addComponent(new MaterialComponent({shader : new (eyeballGenerator.getCurrentShader())}));
 		eyeEntity.addComponent(new PositionComponent({
 				x : position.x,
 				y : position.y
@@ -57,7 +58,7 @@ const eye = {
 		let pupilEntity = new Entity();
 
 		pupilEntity.addComponent(new MeshComponent({mesh : pupilGenerator.getCurrentMesh()}));
-		pupilEntity.addComponent(new MaterialComponent({shader : pupilGenerator.getCurrentShader()}));
+		pupilEntity.addComponent(new MaterialComponent({shader : new (pupilGenerator.getCurrentShader())}));
 
 		//create pupil at center, refactor later
 		pupilEntity.addComponent(new PositionComponent({
@@ -80,34 +81,36 @@ const eye = {
 		return pupilEntity;
 	},
 
-	setupEyelashes : function(numEyelashes, eyelashGeometry, eyePos, eyeMesh){
+	//how to simplify this further
+	setupEyelashes : function(position, eyelashGenerator, numEyelashes, eyeMesh, eyePath){
 		let eyelashEntities = [];
-		let eyelashSep = eyeMesh.path.length/numEyelashes; 
+		let eyelashSep = eyePath.length/numEyelashes; 
 
 		for(let i = 0; i < numEyelashes; i++){
 			let eyelashEntity = new Entity();
-			let point = eyeMesh.path.getPointAt(eyelashSep * i);
+			let point = eyePath.getPointAt(eyelashSep * i);
 			
-			eyelashEntity.addComponent(new MeshComponent({
-				geometry : eyelashGeometry,
-				zOrder : 3 + i,
-				center : true,
-				globalCompositeOperation : "destination-over",
-				// globalCompositeOperation : "add",
-				drawPos : "BOTTOM-CENTER"
-			}));
+			eyelashEntity.addComponent(new MeshComponent({mesh : eyelashGenerator.getCurrentMesh()}));
+			eyelashEntity.addComponent(new MaterialComponent({shader : new (eyelashGenerator.getCurrentShader())}));
 
-			const tempOffset = eyelashEntity.getComponent("MESH").height/2;
 
+			eyelashEntity.getComponent("MESH").mesh.renderOrder = -10;
+
+			//todo try to refactor this
 			eyelashEntity.addComponent(new PositionComponent({
-				x : point.x + eyePos.x - eyeMesh.width/2,
-				y : point.y  + eyePos.y - eyeMesh.height/2
+				x : point.x + position.x - eyePath.bounds.width/2,//- eyeMesh.width/2,
+				y : eyePath.bounds.height - point.y + position.y - eyePath.bounds.height/2
 			}));
 
 			//get normal vector
-			const normal = eyeMesh.path.getNormalAt(eyelashSep * i);
+			const normal = eyePath.getNormalAt(eyelashSep * i);
+			//todo, refactor!!
+			normal.x = -normal.x;
+			normal.y =  normal.y;
 			const dirVector = new paper.Point(0, -1);
 			const angle = dirVector.getDirectedAngle(normal);
+
+
 
 			eyelashEntity.addComponent(new RotationComponent({
 				rotation : angle * Math.PI / 180

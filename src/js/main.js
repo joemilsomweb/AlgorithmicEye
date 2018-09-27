@@ -5,7 +5,7 @@ import MouthGenerator from "face_generators/mouth/mouth_generator";
 
 import EyeballGenerator from 'face_generators/eye/2D/eyeball_generator_2d';
 import PupilGenerator from 'face_generators/eye/2D/pupil_generator_2d';
-import EyelashFactory from 'face_generators/eye/eyelash_factory';
+import EyelashGenerator from 'face_generators/eye/2D/eyelash_generator_2d';
 import MouthFactory from 'face_generators/mouth/mouth_factory';
   
 //systems
@@ -13,6 +13,7 @@ import RenderSystem from "systems/render_system";
 import ThreeRenderSystem from "systems/three_render_system";
 import UpdatePosSystem from "systems/update_pos_system";
 import AnimationSystem from "systems/animation_system";
+import ScaleSystem from "systems/scale_system";
 import WebglPostProcessSystem from "systems/webgl_postprocess_system";
 
 import * as Three from "three-full";
@@ -22,16 +23,14 @@ const canvas = document.getElementById("main_canvas");
 function generateEyes(){
 	EyeballGenerator.generate();
 	PupilGenerator.generate();
-
-	//to rename
-	EyelashFactory.generate();
+	EyelashGenerator.generate();
 
 	let numEyelashes = Math.floor(Math.random() * 20) + 4;
 
 	let leftEyeEntities = EyeGenerator.create({
 		eyeballGenerator : EyeballGenerator, 
 		pupilGenerator : PupilGenerator,
-		eyelashGeometry : EyelashFactory.get(),
+		eyelashGenerator : EyelashGenerator,
 		position : {
 			x : -300,
 			y : 0
@@ -42,7 +41,7 @@ function generateEyes(){
 	let rightEyeEntities = EyeGenerator.create({
 		eyeballGenerator : EyeballGenerator, 
 		pupilGenerator : PupilGenerator,
-		eyelashGeometry : EyelashFactory.get(),
+		eyelashGenerator : EyelashGenerator,
 		position : {
 			x : 300,
 			y : 0
@@ -87,7 +86,8 @@ function draw(time){
 	//		entities = generateEyes()
 	// }
 
-	AnimationSystem.update(entities);
+	// AnimationSystem.update(entities);
+	ScaleSystem.update(entities);
 	UpdatePosSystem.update(entities);
 	ThreeRenderSystem.render(entities, ThreeRenderer, ThreeScene, ThreeCamera);
 
