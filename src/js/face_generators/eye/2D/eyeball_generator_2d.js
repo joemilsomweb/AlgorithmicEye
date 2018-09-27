@@ -13,7 +13,7 @@ const EyeballGenerator = {
 		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
 		if(Array.isArray(generator)){
 			//size is set manually here. Can I do better?
-			const size = Math.random() * 400 + 200;
+			const size = Math.random() * 300 + 150;
 			
 			this.geometry = generator.map((point) => {
 				return {x : (point.x + 0.1) * size, y : (point.y + 0.1) * size}

@@ -2,8 +2,13 @@ precision mediump float;
 
 uniform vec2 iResolution;
 uniform float iTime;
+uniform sampler2D map;
+
+uniform vec3 diffuse;
+uniform vec3 ambient;
 
 varying vec2 uvFrag;
+
 
 float getFog();
 float opDisplace(vec3);
@@ -11,6 +16,7 @@ float smin(float, float, float);
 float sphereFunc(vec3);
 vec3 estimateNormal(vec3);
 vec4 applyLighting(vec3, vec3);
+
 
 //#define EPSILON = 0.0000001
 const float EPSILON = 0.00001;
@@ -80,16 +86,15 @@ void main()
             resultCol = applyLighting(pos, eye);
         }
         else{
-            // resultCol = texture2D(texture, uvFrag);
-            resultCol = vec4(0);
+            resultCol = vec4(0., 0., 0., 0.);
         }
+
+        //test
+        vec4 texMask = texture2D(map, uvFrag);
+        resultCol = mix(vec4(0), resultCol,  texMask.r); 
     
         //put applylighting in here
         gl_FragColor = resultCol;
-
-    //fragColor = col; 
-
-    // gl_FragColor = texture2D(texture, uvFrag);
 }
 
 vec4 applyLighting(vec3 pos, vec3 eye){
@@ -100,19 +105,19 @@ vec4 applyLighting(vec3 pos, vec3 eye){
     //colors
     // vec3 diffuse = vec3(1., sin(iTime) * 2. - 1., sin((pos.z + iTime) * 20.));
     // vec3 diffuse = vec3(pos.z, pos.y, 1.);
-    vec3 diffuse = vec3(1., 0, 1.);
+    // vec3 diffuse = vec3(1., 0, 1.);
 
-    //use refraction instead
-    // vec3 offset = refract(normalize(pos - eye), normal, .98);
-    // vec3 diffuse = texture2D(texture, uvFrag).rgb;
-    vec3 ambient = vec3(0, 1., 1.);
+    // //use refraction instead
+    // // vec3 offset = refract(normalize(pos - eye), normal, .98);
+    // // vec3 diffuse = texture2D(texture, uvFrag).rgb;
+    // vec3 ambient = vec3(0, 0., 1.);
     
     float brightness = .4;
     float reflectionC = 0.5;
     vec3 diffCol = diffuse * (brightness * reflectionC * dot(lightDir, normal) * 3.14/2.);
     vec3 ambientCol = ambient * 0.5;
     float specular = dot(normalize(reflect(lightPos, normal)), normalize(eye - pos));
-    specular = 10. * pow(specular, ((sin(iTime * 10.) + 2.) * 0.5) + 30.);
+    specular = 2. * pow(specular, ((sin(iTime * 10.) + 2.) * 0.5) + 1000.);
     return vec4(ambientCol + diffCol + specular, 1.);
 }
 
@@ -137,9 +142,9 @@ float sphereFunc(vec3 pos){
                        0., 1., 0.,
                        -sin(a), 0., cos(a));
     
-    pos *= rotMat;
+    // pos *= rotMat;
 
-    float r = 0.5;
+    float r = 1.5;
     
     float d1 = length(pos) - r;
     //return d1;

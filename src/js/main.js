@@ -72,12 +72,16 @@ setRandomBackground();
 
 
 //todo create function here
-const width = canvas.width;
-const height = canvas.height;
+const width = window.innerWidth;
+const height = window.innerHeight;
 
 let ThreeScene = new Three.Scene();
 let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 0, 1000);
+
 let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true, antialias : true});
+ThreeRenderer.setSize(window.innerWidth, window.innerHeight);
+canvas.style.height = "";
+
 
 function draw(time){
 

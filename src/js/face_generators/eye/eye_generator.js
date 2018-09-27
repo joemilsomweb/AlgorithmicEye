@@ -36,16 +36,13 @@ const eye = {
 			options.eyeballGenerator.getCurrentPath()
 		);
 
-		// return [eyeEntity, pupilEntity];
 		return [eyeEntity, pupilEntity].concat(eyeLashEntities);
-		// return [eyeEntity];
 	},
 
 	setupEye : function(position, eyeballGenerator){
 		let eyeEntity = new Entity();
 
 		eyeEntity.addComponent(new MeshComponent({mesh : eyeballGenerator.getCurrentMesh()}));
-		
 		//hmmm get current shader is a bit bad. maybe each generator has its own shader factory
 		eyeEntity.addComponent(new MaterialComponent({
 			shader : new (eyeballGenerator.getCurrentShader())
@@ -79,17 +76,13 @@ const eye = {
 				z : -1
 		}));
 
-		// //need to refactor here
-		// pupilEntity.addComponent(new BoundsComponent({
-		// 	boundsPath : eyeMesh.path
-		// }));
 		pupilEntity.addComponent(new NoiseRotationComponent({
 			scale : 10
 		}));
 
 		// pupilEntity.addComponent(new MouseFollowComponent());
 
-		// pupilEntity.addComponent(new NoiseComponent());
+		pupilEntity.addComponent(new NoiseComponent());
 
 		return pupilEntity;
 	},

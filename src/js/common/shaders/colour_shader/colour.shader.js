@@ -21,20 +21,14 @@ class ColourShader{
 				}
 			},
 			vertexShader : vertShader,
-			fragmentShader : fragShader
-			// depthTest : false,
-			// transparent : true
+			fragmentShader : fragShader,
+			transparent : true
 		});
 
-		//set blending via components.
-		//use system that is triggered on new
-		//useful for composite operation like effects
 		this.material.blending = Three.CustomBlending;
 		this.material.blendEquation = Three.AddEquation;
 		this.material.blendSrc = Three.SrcAlphaFactor;
 		this.material.blendDst = Three.OneMinusSrcAlphaFactor;
-
-		// this.debugTexture(texture);
 	}
 
 	update(){

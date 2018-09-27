@@ -10,7 +10,7 @@ const PupilGenerator = {
 		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
 		if(Array.isArray(generator)){
 			//size is set manually here. Can I do better?
-			const s = Math.random() * 30 + 80;
+			const s = Math.random() * 20 + 60;
 			
 			this.geometry = generator.map((point) => {
 				return {x : (point.x + 0.1) * s, y : (point.y + 0.1) * s}

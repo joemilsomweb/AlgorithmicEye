@@ -23,7 +23,8 @@ class ColourShader{
 				}
 			},
 			vertexShader : vertShader,
-			fragmentShader : fragShader
+			fragmentShader : fragShader,
+			transparent : true
 		});
 
 		this.material.blending = Three.CustomBlending;
