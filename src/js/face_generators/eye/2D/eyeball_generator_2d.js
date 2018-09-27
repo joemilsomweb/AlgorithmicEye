@@ -1,14 +1,14 @@
 import RoundOutlineType from 'face_generators/eye/outline_types/round_type';
 import Texture from "common/texture";
 import ShaderFactory from "common/shader_factory";
-import * as Three from "three";
+import * as Three from "three-full";
 
 //bit funky, create inline function via loader that imports all outline datas from directory
 let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/outline_geometry"};
 
 //create extendable class maybe? Maybe use prototypical inheritance instead
 const EyeballGenerator = {
-	generate : function(){
+	generate(){
 		//choose random generator from list
 		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
 		if(Array.isArray(generator)){
@@ -45,9 +45,39 @@ const EyeballGenerator = {
 		});
 
 		let mesh = new Three.Mesh(geometry, material);
-		mesh.position.z = -1;
+
+		// mesh = this.getMeshFromPoints();
 
 		return mesh;
+	},
+
+	//try to get working? or less efficient?
+	getMeshFromPoints(){
+		//map geometry points to an array of three vectors
+		let geometryPoints = this.geometry.map((point) => {return new Three.Vector3(point.x, point.y, 0);});
+
+		let geometry = new Three.Geometry();
+
+		let index = 0;
+		for(let p of geometryPoints){
+		    geometry.vertices.push(p);
+		};
+		geometry.vertices.push( geometryPoints[0] );
+
+		for(let i = 2; i < geometryPoints.length; i++){
+			// const b = i - 100 > 0 ? i-20 : 0; 
+			geometry.faces.push( new Three.Face3(0, i-1, i));
+		}
+
+		// let geometry = new Three.ConvexBufferGeometry(geometryPoints);
+		let material = new Three.MeshBasicMaterial({
+			color : 0xff0000
+		});
+
+		let mesh = new Three.Mesh(geometry, material);
+
+		return mesh;
+		
 	},
 
 	getCurrentPath(){

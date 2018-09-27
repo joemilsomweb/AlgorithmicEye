@@ -1,6 +1,6 @@
 import Texture from "common/texture";
 import ShaderFactory from "common/shader_factory";
-import * as Three from "three";
+import * as Three from "three-full";
 
 
 let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/pupil_geometry"};
@@ -42,7 +42,7 @@ const PupilGenerator = {
 		});
 
 		let mesh = new Three.Mesh(geometry, material);
-		mesh.position.z = -1;
+		mesh.position.z = 0;
 
 		return mesh;
 	},

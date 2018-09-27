@@ -1,6 +1,6 @@
 //would be nice to have it as an import
 let paper = require("paper");
-import * as Three from "three";
+import * as Three from "three-full";
 
 class MaterialComponent{
 	

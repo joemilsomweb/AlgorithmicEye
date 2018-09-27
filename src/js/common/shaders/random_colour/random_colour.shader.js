@@ -1,4 +1,4 @@
-import * as Three from "three";
+import * as Three from "three-full";
 
 const vertShader = require("common/shaders/random_colour/vert.glsl");
 const fragShader = require("common/shaders/random_colour/frag.glsl");
@@ -9,13 +9,14 @@ class ColourShader{
 		
 		//for now. remove annoying resizing junk
 		//fixes disappearing texture too!
-		texture.width = Math.pow(2, Math.round(Math.log(texture.width) / Math.log(2)));
-		texture.height = Math.pow(2, Math.round(Math.log(texture.height) / Math.log(2)));
+		let map = new Three.CanvasTexture(texture);
+		map.minFilter = Three.LinearFilter;
+		map.magFilter = Three.LinearFilter;
 
 		this.material = new Three.ShaderMaterial({
 			uniforms : {
 				map : {
-					value : new Three.CanvasTexture(texture)
+					value : map
 				},
 				colour : {
 					value : colour

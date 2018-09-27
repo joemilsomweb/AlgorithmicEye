@@ -15,7 +15,7 @@ import UpdatePosSystem from "systems/update_pos_system";
 import AnimationSystem from "systems/animation_system";
 import WebglPostProcessSystem from "systems/webgl_postprocess_system";
 
-import * as Three from "three";
+import * as Three from "three-full";
 
 const canvas = document.getElementById("main_canvas");
 
@@ -77,7 +77,7 @@ const width = canvas.width;
 const height = canvas.height;
 
 let ThreeScene = new Three.Scene();
-let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 1, 1000);
+let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 0, 1000);
 let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true, antialias : true});
 
 function draw(time){

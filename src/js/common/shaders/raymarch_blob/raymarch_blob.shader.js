@@ -1,4 +1,4 @@
-import * as Three from "three";
+import * as Three from "three-full";
 
 const vertShader = require("common/shaders/raymarch_blob/vertex.glsl");
 const fragShader = require("common/shaders/raymarch_blob/fragment.glsl");
