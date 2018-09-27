@@ -1,10 +1,10 @@
 import Entity from 'entity';
-import TeethFactory from "face_generators/mouth/teeth_factory";
-import MoustacheFactory from "face_generators/mouth/moustache_factory";
+import TeethGenerator from "face_generators/mouth/2D/teeth_generator_2d";
 import FacialHairFactory from "face_generators/mouth/facial_hair_factory";
 
 import MeshComponent from 'components/render/mesh_component';
 import PositionComponent from 'components/transform/position_component';
+import MaterialComponent from 'components/render/material_component';
 import RotationComponent from 'components/transform/rotation_component';
 import NoiseRotationComponent from 'components/noise_rotation_component';
 import ScaleComponent from 'components/transform/scale_component';
@@ -16,22 +16,20 @@ const mouth = {
 	create : function(options){
 		let mouthEntity = new Entity();
 
-		mouthEntity.addComponent(new MeshComponent({
-			geometry : options.mouthGeometry,
-			zOrder : 0,
-			center : true,
-			globalCompositeOperation : "source-over",
-			drawPos : "CENTER"
+		mouthEntity.addComponent(new MeshComponent({mesh : options.mouthGenerator.getCurrentMesh()}));
+		mouthEntity.addComponent(new MaterialComponent({
+			shader : options.mouthGenerator.getCurrentShader()
 		}));
 
 		mouthEntity.addComponent(new PositionComponent({
 				x : options.position.x,
-				y : options.position.y
+				y : options.position.y,
+				z : 0
 		}));
 
-		TeethFactory.generate();
+		TeethGenerator.generate();
 
-		const numTeeth = Math.floor(Math.random() * 30); 
+		// const numTeeth = Math.floor(Math.random() * 30); 
 		// let teethEntities = this.setupTeeth(numTeeth, TeethFactory.get(), mouthEntity.getComponent("POSITION"),  mouthEntity.getComponent("MESH"));
 
 		// let moustacheEntities = this.setupFacialHair(options.position);

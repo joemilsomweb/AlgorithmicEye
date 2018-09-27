@@ -57,7 +57,7 @@ const PupilGenerator = {
 	},
 
 	getCurrentShader(){
-		return this.shader;
+		return new this.shader;
 	}
 
 };

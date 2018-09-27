@@ -2,18 +2,16 @@ import Texture from "common/texture";
 import ShaderFactory from "common/shader_factory";
 import * as Three from "three-full";
 
-//bit funky, create inline function via loader that imports all outline datas from directory
-let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/outline_geometry"};
+let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/mouth_geometry"};
 
 //create extendable class maybe? Maybe use prototypical inheritance instead
-//also, should it be a class or not? its kind of like a singleton at the moment...
-const EyeballGenerator = {
+const MouthGenerator = {
 	generate(){
 		//choose random generator from list
 		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
 		if(Array.isArray(generator)){
 			//size is set manually here. Can I do better?
-			const size = Math.random() * 300 + 150;
+			const size = Math.random() * 150 + 150;
 			
 			this.geometry = generator.map((point) => {
 				return {x : (point.x + 0.1) * size, y : (point.y + 0.1) * size}
@@ -77,6 +75,7 @@ const EyeballGenerator = {
 		let mesh = new Three.Mesh(geometry, material);
 
 		return mesh;
+		
 	},
 
 	getCurrentPath(){
@@ -94,5 +93,5 @@ const EyeballGenerator = {
 
 };
 
-export default EyeballGenerator;
+export default MouthGenerator;
 

@@ -45,7 +45,7 @@ const eye = {
 		eyeEntity.addComponent(new MeshComponent({mesh : eyeballGenerator.getCurrentMesh()}));
 		//hmmm get current shader is a bit bad. maybe each generator has its own shader factory
 		eyeEntity.addComponent(new MaterialComponent({
-			shader : new (eyeballGenerator.getCurrentShader())
+			shader : eyeballGenerator.getCurrentShader()
 		}));
 		eyeEntity.addComponent(new PositionComponent({
 				x : position.x,
@@ -61,7 +61,7 @@ const eye = {
 
 		pupilEntity.addComponent(new MeshComponent({mesh : pupilGenerator.getCurrentMesh()}));
 		pupilEntity.addComponent(new MaterialComponent({
-			shader : new (pupilGenerator.getCurrentShader()),
+			shader : pupilGenerator.getCurrentShader(),
 			blendMode : {
 				equation : Three.AddEquation,
 				src : Three.DstAlphaFactor,
@@ -98,7 +98,7 @@ const eye = {
 			
 			eyelashEntity.addComponent(new MeshComponent({mesh : eyelashGenerator.getCurrentMesh()}));
 			eyelashEntity.addComponent(new MaterialComponent({
-				shader : new (eyelashGenerator.getCurrentShader()),
+				shader : eyelashGenerator.getCurrentShader(),
 				blendMode : {
 					equation : Three.AddEquation,
 					src : Three.OneMinusDstAlphaFactor,
@@ -106,12 +106,7 @@ const eye = {
 				}
 			}));
 
-			//todo try to refactor this
-			eyelashEntity.addComponent(new PositionComponent({
-				x : point.x + position.x - eyePath.bounds.width/2,//- eyeMesh.width/2,
-				y : eyePath.bounds.height - point.y + position.y - eyePath.bounds.height/2,
-				z : 0
-			}));
+			eyeMesh.addChild(eyelashEntity.getComponent("MESH"));
 
 			//get normal vector
 			const normal = eyePath.getNormalAt(eyelashSep * i);
@@ -121,10 +116,15 @@ const eye = {
 			const dirVector = new paper.Point(0, -1);
 			const angle = dirVector.getDirectedAngle(normal);
 
-
-
 			eyelashEntity.addComponent(new RotationComponent({
 				rotation : angle * Math.PI / 180
+			}));
+
+			//todo try to refactor this
+			eyelashEntity.addComponent(new PositionComponent({
+				x : point.x - eyePath.bounds.width/2,
+				y : -point.y + eyePath.bounds.height/2,
+				z : 0
 			}));
 
 			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 10}));

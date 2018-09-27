@@ -21,9 +21,11 @@ const ThreeRenderSystem = {
 				//todo put in rotation system
 				meshComp.mesh.rotation.z = entity.getComponent("ROTATION") ? entity.getComponent("ROTATION").rotation : 0; 
 				meshComp.mesh.rotation.z += entity.getComponent("NOISE_ROTATION") ? entity.getComponent("NOISE_ROTATION").rotation : 0; 
-				// console.log(entity.getComponent("ROTATION"));
-				//todo dont add every frame!!
-				threeScene.add(meshComp.mesh);
+				
+				//todo dont add every frame!! Do it at the initialisation stage
+				if(!meshComp.mesh.parent){
+					threeScene.add(meshComp.mesh);
+				}
 			}			
 		}
 

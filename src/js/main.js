@@ -6,7 +6,8 @@ import MouthGenerator from "face_generators/mouth/mouth_generator";
 import EyeballGenerator from 'face_generators/eye/2D/eyeball_generator_2d';
 import PupilGenerator from 'face_generators/eye/2D/pupil_generator_2d';
 import EyelashGenerator from 'face_generators/eye/2D/eyelash_generator_2d';
-import MouthFactory from 'face_generators/mouth/mouth_factory';
+
+import MouthOutlineGenerator from 'face_generators/mouth/2D/mouth_generator_2d';
   
 //systems
 import RenderSystem from "systems/render_system";
@@ -33,7 +34,7 @@ function generateEyes(){
 		eyelashGenerator : EyelashGenerator,
 		position : {
 			x : -300,
-			y : 0
+			y : 75
 		},
 		numEyelashes : numEyelashes
 	});
@@ -44,7 +45,7 @@ function generateEyes(){
 		eyelashGenerator : EyelashGenerator,
 		position : {
 			x : 300,
-			y : 0
+			y : 75
 		},
 		numEyelashes : numEyelashes
 	});
@@ -52,21 +53,20 @@ function generateEyes(){
 	return leftEyeEntities.concat(rightEyeEntities);
 }
 
-// function generateMouth(){
-// 	MouthFactory.generate();
-
-// 	return MouthGenerator.create({
-// 		mouthGeometry : MouthFactory.get(),
-// 		position : {
-// 			x : canvas.width/2 - 100,
-// 			y : 750
-// 		}
-// 	});
-// }
+function generateMouth(){
+	MouthOutlineGenerator.generate();
+	return MouthGenerator.create({
+		mouthGenerator : MouthOutlineGenerator,
+		position : {
+			x : 0,
+			y : -150
+		}
+	});
+}
 
 let currentFrame = 0;
 let entities = generateEyes();
-// entities = entities.concat(generateMouth());
+entities = entities.concat(generateMouth());
 
 setRandomBackground();
 
@@ -84,12 +84,6 @@ canvas.style.height = "";
 
 
 function draw(time){
-
-	// //generate new eyes every 80 frames
-	// if(currentFrame % 140 === 0){
-	//		entities = generateEyes()
-	// }
-
 	// AnimationSystem.update(entities);
 	ScaleSystem.update(entities);
 	UpdatePosSystem.update(entities);
@@ -103,7 +97,7 @@ function draw(time){
 window.onkeypress = function(e){
 	if(e.keyCode == 32){
         entities = generateEyes();
-        // entities = entities.concat(generateMouth());
+        entities = entities.concat(generateMouth());
         setRandomBackground();
     }
 }
