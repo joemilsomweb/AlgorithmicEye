@@ -38,6 +38,7 @@ const EyeballGenerator = {
 	},
 
 	getCurrentMesh(){
+		//instead of plane buffer geometry, how about generating a mesh from the points?
 		let geometry = new Three.PlaneBufferGeometry(this.texture.width, this.texture.height);
 		let material = new Three.MeshBasicMaterial({
 			color : 0xff0000

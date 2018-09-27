@@ -29,9 +29,17 @@ class ColourShader{
 		this.material.blendEquation = Three.AddEquation;
 		this.material.blendSrc = Three.SrcAlphaFactor;
 		this.material.blendDst = Three.OneMinusSrcAlphaFactor;
+
+		// this.currentFrame = 0;
 	}
 
 	update(){
+		// this.currentFrame++;
+
+		// if(this.currentFrame%60 !==0){
+		// 	return;
+		// }
+
 		this.material.uniforms.map.value.needsUpdate = true;
 
 		this.material.uniforms.colour.value.x = Math.random();
