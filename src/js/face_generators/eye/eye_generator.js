@@ -82,7 +82,7 @@ const eye = {
 
 		// pupilEntity.addComponent(new MouseFollowComponent());
 
-		pupilEntity.addComponent(new NoiseComponent());
+		// pupilEntity.addComponent(new NoiseComponent());
 
 		return pupilEntity;
 	},
