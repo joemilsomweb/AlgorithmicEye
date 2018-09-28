@@ -75,10 +75,12 @@ setRandomBackground();
 const width = window.innerWidth;
 const height = window.innerHeight;
 
+let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true, antialias : true});
+
 let ThreeScene = new Three.Scene();
 let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 0, 1000);
+let ThreeRenderTarget = new Three.WebGLRenderTarget(window.innerWidth, window.innerHeight);
 
-let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true, antialias : true});
 ThreeRenderer.setSize(window.innerWidth, window.innerHeight);
 canvas.style.height = "";
 
@@ -87,7 +89,8 @@ function draw(time){
 	// AnimationSystem.update(entities);
 	ScaleSystem.update(entities);
 	UpdatePosSystem.update(entities);
-	ThreeRenderSystem.render(entities, ThreeRenderer, ThreeScene, ThreeCamera);
+	ThreeRenderSystem.render(entities, ThreeRenderer, ThreeScene, ThreeCamera, ThreeRenderTarget);
+	WebglPostProcessSystem.render(ThreeRenderer, ThreeRenderTarget);
 
 	currentFrame++;
 	requestAnimationFrame(draw);

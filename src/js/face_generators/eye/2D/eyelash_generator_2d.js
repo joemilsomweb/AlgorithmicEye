@@ -1,5 +1,5 @@
-import Texture from "common/texture";
-import ShaderFactory from "common/shader_factory";
+import Texture from "shaders/texture";
+import ShaderFactory from "shaders//shader_factory";
 import * as Three from "three-full";
 
 let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/eyelash_geometry"};

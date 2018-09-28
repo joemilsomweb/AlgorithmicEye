@@ -1,6 +1,5 @@
 import Entity from 'entity';
 import TeethGenerator from "face_generators/mouth/2D/teeth_generator_2d";
-import FacialHairFactory from "face_generators/mouth/facial_hair_factory";
 
 import MeshComponent from 'components/render/mesh_component';
 import PositionComponent from 'components/transform/position_component';

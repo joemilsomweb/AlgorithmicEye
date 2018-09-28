@@ -1,5 +1,5 @@
-import Texture from "common/texture";
-import ShaderFactory from "common/shader_factory";
+import Texture from "shaders/texture";
+import ShaderFactory from "shaders/shader_factory";
 import * as Three from "three-full";
 
 //bit funky, create inline function via loader that imports all outline datas from directory

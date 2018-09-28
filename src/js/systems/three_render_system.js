@@ -1,6 +1,6 @@
 const ThreeRenderSystem = {
 
-	render : function(entities, threeRenderer, threeScene, camera) {
+	render : function(entities, threeRenderer, threeScene, camera, target) {
 
 		this.removeOldMeshes(threeScene, entities);
 
@@ -29,7 +29,7 @@ const ThreeRenderSystem = {
 			}			
 		}
 
-		threeRenderer.render(threeScene, camera);
+		threeRenderer.render(threeScene, camera, target);
 	},
 
 	//this does not need to be here. put it outside, so its not running every frame

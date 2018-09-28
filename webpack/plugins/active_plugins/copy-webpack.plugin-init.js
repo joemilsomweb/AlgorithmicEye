@@ -9,10 +9,6 @@ const copy_plugin = new CopyWebpackPlugin([
         {
          from : "./src/images",
          to : path.resolve('./dist/images')
-        },
-        {
-         from : "src/shaders",
-         to : path.resolve('./dist/shaders')
         }
  ]);
 
