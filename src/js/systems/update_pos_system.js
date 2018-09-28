@@ -9,7 +9,6 @@ const UpdatePosSystem = {
 			const mouseFollowComp = entity.getComponent("MOUSE_FOLLOW");		
 			const noiseRotation = entity.getComponent("NOISE_ROTATION");		
 
-
 			if(boundsComp){
 				// let isInsidePath = boundsComp.checkBounds(posComp.x, posComp.y);
 			}

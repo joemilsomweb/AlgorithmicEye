@@ -4,8 +4,9 @@ const vertShader = require("shaders/shaders/colour_shader/vert.glsl");
 const fragShader = require("shaders/shaders/colour_shader/frag.glsl");
 
 class ColourShader{
-	constructor(texture){
-		let colour = new Three.Vector4(Math.random(), Math.random(), Math.random(), 1);
+	constructor(texture, col){
+		console.log(col);
+		let colour = col || new Three.Vector4(Math.random(), Math.random(), Math.random(), 1);
 		
 		let map = new Three.CanvasTexture(texture);
 		map.minFilter = Three.LinearFilter;

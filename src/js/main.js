@@ -10,10 +10,8 @@ import EyelashGenerator from 'face_generators/eye/2D/eyelash_generator_2d';
 import MouthOutlineGenerator from 'face_generators/mouth/2D/mouth_generator_2d';
   
 //systems
-import RenderSystem from "systems/render_system";
 import ThreeRenderSystem from "systems/three_render_system";
 import UpdatePosSystem from "systems/update_pos_system";
-import AnimationSystem from "systems/animation_system";
 import ScaleSystem from "systems/scale_system";
 import WebglPostProcessSystem from "systems/webgl_postprocess_system";
 
@@ -61,7 +59,7 @@ function generateEyes(){
 		numEyelashes : numEyelashes
 	});
 
-	return leftEyeEntities.concat(rightEyeEntities, topEyeEntities);
+	return leftEyeEntities.concat(rightEyeEntities);
 }
 
 function generateMouth(){
@@ -82,7 +80,7 @@ entities = entities.concat(generateMouth());
 setRandomBackground();
 
 
-//todo create function here
+//todo create class here
 const width = window.innerWidth;
 const height = window.innerHeight;
 

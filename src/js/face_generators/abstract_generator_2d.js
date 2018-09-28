@@ -2,25 +2,23 @@ import Texture from "shaders/texture";
 import ShaderFactory from "shaders/shader_factory";
 import * as Three from "three-full";
 
-//bit funky, create inline function via loader that imports all outline datas from directory
-let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/outline_geometry"};
-
-class AbstractGenerator2D = {
+class AbstractGenerator2D{
 
 	constructor(options){
 		this.generatorFunctions = options.generatorFunctions;
-		this.size = options.size;
+		this.sizeRandomFactor = options.size.randomFactor;
+		this.sizeMinimum = options.size.minimum;
 	}
 
 	generate(){
+		this.size = Math.random() * this.sizeRandomFactor + this.sizeMinimum;
+
 		//choose random generator from list
-		const generator = generatorFunctions[Math.floor(Math.random()*generatorFunctions.length)];
+		const generator = this.generatorFunctions[Math.floor(Math.random()*this.generatorFunctions.length)];
 		if(Array.isArray(generator)){
-			//size is set manually here. Can I do better?
-			const size = Math.random() * 300 + 150;
-			
+			//size is set manually here. Can I do better?			
 			this.geometry = generator.map((point) => {
-				return {x : (point.x + 0.1) * size, y : (point.y + 0.1) * size}
+				return {x : (point.x + 0.1) * this.size, y : (point.y + 0.1) * this.size}
 			});
 		}
 		else{			

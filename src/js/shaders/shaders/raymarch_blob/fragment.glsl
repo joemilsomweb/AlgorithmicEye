@@ -86,7 +86,8 @@ void main()
             resultCol = applyLighting(pos, eye);
         }
         else{
-            resultCol = vec4(0., 0., 0., 0.);
+            // resultCol = vec4(ambient.r, ambient.g, ambient.b, 0.1);
+            resultCol = vec4(0);
         }
 
         //test

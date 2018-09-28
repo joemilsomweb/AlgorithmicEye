@@ -26,7 +26,7 @@ import * as Three from "three-full";
 const eye = {
 	create : function(options){
 		let eyeEntity = this.setupEye(options.position, options.eyeballGenerator);
-		let pupilEntity = this.setupPupil(options.position, options.pupilGenerator);
+		let pupilEntity = this.setupPupil(options.position, options.pupilGenerator, eyeEntity.getComponent("MESH"));
 
 		let eyeLashEntities = this.setupEyelashes(
 			options.position,	
@@ -56,7 +56,7 @@ const eye = {
 		return eyeEntity;
 	},
 
-	setupPupil : function(position, pupilGenerator){
+	setupPupil : function(position, pupilGenerator, eyeMesh){
 		let pupilEntity = new Entity();
 
 		pupilEntity.addComponent(new MeshComponent({mesh : pupilGenerator.getCurrentMesh()}));
@@ -71,15 +71,17 @@ const eye = {
 
 		//create pupil at center, refactor later
 		pupilEntity.addComponent(new PositionComponent({
-				x : position.x,
-				y : position.y,
-				z : -1
+				x : 0,
+				y : 0,
+				z : 0
 		}));
 
 		pupilEntity.addComponent(new NoiseRotationComponent({
 			scale : 10
 		}));
 
+
+		eyeMesh.addChild(pupilEntity.getComponent("MESH"));
 		// pupilEntity.addComponent(new MouseFollowComponent());
 
 		// pupilEntity.addComponent(new NoiseComponent());
@@ -124,7 +126,7 @@ const eye = {
 			eyelashEntity.addComponent(new PositionComponent({
 				x : point.x - eyePath.bounds.width/2,
 				y : -point.y + eyePath.bounds.height/2,
-				z : 0
+				z : 1
 			}));
 
 			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 10}));

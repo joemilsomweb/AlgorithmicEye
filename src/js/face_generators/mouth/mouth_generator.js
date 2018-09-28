@@ -10,11 +10,13 @@ import ScaleComponent from 'components/transform/scale_component';
 import AnimInComponent from 'components/transform/anim_in_component';
 
 const paper = require("paper");
+import * as Three from "three-full";
 
 const mouth = {
-	create : function(options){
+	create(options){
 		let mouthEntity = new Entity();
 
+		//put mouth generator in here?? or outside to share the generator between multiple instances
 		mouthEntity.addComponent(new MeshComponent({mesh : options.mouthGenerator.getCurrentMesh()}));
 		mouthEntity.addComponent(new MaterialComponent({
 			shader : options.mouthGenerator.getCurrentShader()
@@ -23,50 +25,60 @@ const mouth = {
 		mouthEntity.addComponent(new PositionComponent({
 				x : options.position.x,
 				y : options.position.y,
-				z : 0
+				z : -5
 		}));
 
 		TeethGenerator.generate();
 
-		// const numTeeth = Math.floor(Math.random() * 30); 
-		// let teethEntities = this.setupTeeth(numTeeth, TeethFactory.get(), mouthEntity.getComponent("POSITION"),  mouthEntity.getComponent("MESH"));
+		const numTeeth = Math.floor(Math.random() * 30); 
+		let teethEntities = this.setupTeeth(
+			options.position,	
+			TeethGenerator, 
+			numTeeth, 
+			mouthEntity.getComponent("MESH"),
+			options.mouthGenerator.getCurrentPath()
+		);
 
-		// let moustacheEntities = this.setupFacialHair(options.position);
-
-		return [mouthEntity];//.concat(teethEntities);
+		return [mouthEntity].concat(teethEntities);
 	},
 
-	setupTeeth : function(numTeeth, teethGeometry, mouthPos, mouthMesh){
-
+	setupTeeth(position, teethGenerator, numTeeth, mouthMesh, mouthPath){
 		let teethEntities = [];
-		let teethSep = mouthMesh.path.length/numTeeth; 
+		let teethSep = mouthPath.length/numTeeth; 
+
 
 		for(let i = 0; i < numTeeth; i++){
 			let teethEntity = new Entity();
-			let point = mouthMesh.path.getPointAt(teethSep * i);
+			let point = mouthPath.getPointAt(teethSep * i);
 			//quick hack here
-			if(point.y > mouthMesh.path.bounds.height/2){
+			if(point.y > mouthPath.bounds.height/2){
 				continue;
 			}
 			
-			teethEntity.addComponent(new MeshComponent({
-				geometry : teethGeometry,
-				zOrder : 3 + i,
-				center : true,
-				globalCompositeOperation : "source-atop",
-				drawPos : "BOTTOM-CENTER",
-				color : "white"
+			teethEntity.addComponent(new MeshComponent({mesh : teethGenerator.getCurrentMesh()}));
+
+			// debugger
+
+
+			teethEntity.addComponent(new MaterialComponent({
+				shader : teethGenerator.getCurrentShader(),
+				blendMode : {
+					equation : Three.AddEquation,
+					src : Three.DstAlphaFactor,
+					dest : Three.OneMinusSrcAlphaFactor
+				}
 			}));
 
-			const tempOffset = teethEntity.getComponent("MESH").height/2;
+			mouthMesh.addChild(teethEntity.getComponent("MESH"));
 
 			teethEntity.addComponent(new PositionComponent({
-				x : point.x + mouthPos.x - mouthMesh.width/2,
-				y : point.y  + mouthPos.y - mouthMesh.height/2
+				x : point.x - mouthPath.bounds.width/2,
+				y : -point.y + mouthPath.bounds.height/2,
+				z : 0
 			}));
 
 			//get normal vector
-			const normal = (mouthMesh.path.getNormalAt(teethSep * i));
+			const normal = -(mouthPath.getNormalAt(teethSep * i));
 			const dirVector = new paper.Point(0, -1);
 			const angle = dirVector.getDirectedAngle(normal);
 
@@ -76,16 +88,16 @@ const mouth = {
 
 			teethEntity.addComponent(new NoiseRotationComponent({scale : 3}));
 
-			teethEntity.addComponent(new ScaleComponent({scale :  0.5}));
+			teethEntity.addComponent(new ScaleComponent({scale : 1}));
 			teethEntity.addComponent(new AnimInComponent());
 
 			teethEntities.push(teethEntity);
 		}
-
+ 
 		return teethEntities;
 	},
 
-	setupFacialHair : function(position){
+	setupFacialHair(position){
 		MoustacheFactory.generate();
 		FacialHairFactory.generate();
 
