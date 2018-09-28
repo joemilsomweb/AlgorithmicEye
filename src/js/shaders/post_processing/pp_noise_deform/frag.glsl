@@ -22,13 +22,8 @@ float noise(vec2 p){
 
 void main()
 {    
-    vec4 texMaskR = texture2D(map, vUv + noise(vec2(sin(vUv.y * 100. + offset), sin(vUv.x * 75. + offset))) * 0.004);
-    // vec4 texMaskG = texture2D(map, vUv);
-    // vec4 texMaskB = texture2D(map, vUv);
+    vec4 col = texture2D(map, vUv + noise(vec2(sin(vUv.y * 100. + offset), sin(vUv.x * 75. + offset))) * 0.004);
 
-
-    // gl_FragColor = col;
-    gl_FragColor = vec4(texMaskR.r, texMaskR.g, texMaskR.b, texMaskR.a);
-    // gl_FragColor = vec4(texMaskR.r, texMaskR.g, texMaskR.b, texMaskR.a);
+    gl_FragColor = col;
 }
 
