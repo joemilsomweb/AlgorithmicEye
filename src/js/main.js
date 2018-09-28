@@ -54,12 +54,12 @@ function generateEyes(){
 		eyelashGenerator : EyelashGenerator,
 		position : {
 			x : 0,
-			y : 150
+			y : 140
 		},
 		numEyelashes : numEyelashes
 	});
 
-	return leftEyeEntities.concat(rightEyeEntities);
+	return leftEyeEntities.concat(rightEyeEntities, topEyeEntities);
 }
 
 function generateMouth(){
@@ -68,7 +68,7 @@ function generateMouth(){
 		mouthGenerator : MouthOutlineGenerator,
 		position : {
 			x : 0,
-			y : -150
+			y : -220
 		}
 	});
 }
@@ -87,6 +87,8 @@ const height = window.innerHeight;
 let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true, antialias : false});
 
 let ThreeScene = new Three.Scene();
+ThreeScene.scale.x = 0.85;
+ThreeScene.scale.y = 0.85;
 let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 0, 1000);
 let ThreeRenderTarget = new Three.WebGLRenderTarget(window.innerWidth, window.innerHeight);
 
