@@ -9,7 +9,8 @@ import NoiseRotationComponent from 'components/noise_rotation_component';
 import ScaleComponent from 'components/transform/scale_component';
 import AnimInComponent from 'components/transform/anim_in_component';
 
-import MoustacheOutlineGenerator from "face_generators/mouth/2D/teeth_generator_2d";
+import MoustacheOutlineGenerator from "face_generators/mouth/2D/facial_hair_outline_generator";
+import MoustacheHairGenerator from "face_generators/mouth/2D/facial_hair_generator";
 
 const paper = require("paper");
 import * as Three from "three-full";
@@ -93,7 +94,7 @@ const mouth = {
 
 			teethEntity.addComponent(new NoiseRotationComponent({scale : 3}));
 
-			teethEntity.addComponent(new ScaleComponent({scale : 1}));
+			// teethEntity.addComponent(new ScaleComponent({scale : 1}));
 			teethEntity.addComponent(new AnimInComponent());
 
 			teethEntities.push(teethEntity);
@@ -104,20 +105,64 @@ const mouth = {
 
 	setupFacialHair(position){
 		MoustacheOutlineGenerator.generate();
+		MoustacheHairGenerator.generate();
+
+		const path = MoustacheOutlineGenerator.getCurrentPath();
 
 		let moustacheHairEntities = [];
 
-		const numHairs = Math.floor(Math.random() * 80); 
+		let headEntity = new Entity();
 
-		for(let i = 0; i < numHairs; i++){
-			let facialHairEntity = new Entity();
-			// let point = MoustacheFactory.get().path.getPointAt(teethSep * i);
+		headEntity.addComponent(new MeshComponent({mesh : MoustacheOutlineGenerator.getCurrentMesh()}));
+		headEntity.addComponent(new MaterialComponent({
+			shader : MoustacheOutlineGenerator.getCurrentShader(),
+			blendMode : {
+					equation : Three.AddEquation,
+					src : Three.OneMinusDstAlphaFactor,
+					dest : Three.DstAlphaFactor
+			}
+		}));
+
+		headEntity.addComponent(new PositionComponent({
+				x : 0,
+				y : 0,
+				z : -1
+		}));
+		// const numHairs = Math.floor(Math.random() * 20); 
+		// const numHairs = 50; 
+		// const hairSep = path.length/numHairs;
+
+		// for(let i = 0; i < numHairs; i++){
+		// 	let facialHairEntity = new Entity();
+		// 	let point = path.getPointAt(hairSep * i);
 
 
-			moustacheHairEntities.push(facialHairEntity);
-		}
+		// 	facialHairEntity.addComponent(new MeshComponent({mesh : MoustacheHairGenerator.getCurrentMesh()}));
+		// 	facialHairEntity.addComponent(new MaterialComponent({
+		// 		shader : MoustacheHairGenerator.getCurrentShader(),
+		// 		blendMode : {
+		// 			equation : Three.AddEquation,
+		// 			src : Three.OneMinusDstAlphaFactor,
+		// 			dest : Three.DstAlphaFactor
+		// 		}
+		// 	}));
 
-		return [];
+		// 	facialHairEntity.addComponent(new PositionComponent({
+		// 		x : point.x - path.bounds.width/2,
+		// 		y : -point.y + path.bounds.height/2,
+		// 		z : 0
+		// 	}));
+
+		// 	facialHairEntity.addComponent(new RotationComponent({
+		// 		rotation : Math.random() * 90 * Math.PI / 180
+		// 	}));
+
+		// 	// facialHairEntity.addComponent(new ScaleComponent({scale : {x : 5, y : 5}}));
+
+		// 	moustacheHairEntities.push(facialHairEntity);
+		// }
+
+		return headEntity;
 
 	}
 

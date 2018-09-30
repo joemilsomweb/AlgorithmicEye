@@ -49,18 +49,18 @@ function generateEyes(){
 		numEyelashes : numEyelashes
 	});
 
-	// let topEyeEntities = EyeGenerator.create({
-	// 	eyeballGenerator : EyeballGenerator, 
-	// 	pupilGenerator : PupilGenerator,
-	// 	eyelashGenerator : EyelashGenerator,
-	// 	position : {
-	// 		x : 0,
-	// 		y : 140
-	// 	},
-	// 	numEyelashes : numEyelashes
-	// });
+	let topEyeEntities = EyeGenerator.create({
+		eyeballGenerator : EyeballGenerator, 
+		pupilGenerator : PupilGenerator,
+		eyelashGenerator : EyelashGenerator,
+		position : {
+			x : 0,
+			y : 140
+		},
+		numEyelashes : numEyelashes
+	});
 
-	return leftEyeEntities.concat(rightEyeEntities);
+	return leftEyeEntities.concat(rightEyeEntities, topEyeEntities);
 }
 
 function generateMouth(){

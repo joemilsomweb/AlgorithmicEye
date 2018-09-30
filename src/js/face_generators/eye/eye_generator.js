@@ -55,6 +55,10 @@ const eye = {
 		}));
 		eyeEntity.addComponent(new BlinkComponent());
 
+		// const s = 0.5;
+		// const scale = {x : 1, y : s};
+		// eyeEntity.addComponent(new ScaleComponent({scale : scale}));
+
 		return eyeEntity;
 	},
 
@@ -135,7 +139,9 @@ const eye = {
 
 			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 10}));
 
-			eyelashEntity.addComponent(new ScaleComponent({scale : Math.random() + 0.5}));
+			const s = Math.random() + 0.5;
+			const scale = {x : s, y : s};
+			eyelashEntity.addComponent(new ScaleComponent({scale : scale}));
 			eyelashEntity.addComponent(new AnimInComponent());
 
 			eyelashEntities.push(eyelashEntity);

@@ -1,14 +1,14 @@
 import * as Three from "three-full";
 import AbstractGenerator2D from "face_generators/abstract_generator_2d";
 
-let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/moustache_geometry"};
+let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/pupil_geometry"};
 
-const FacialHairGenerator = new AbstractGenerator2D({
+const FacialHairOutlineGenerator = new AbstractGenerator2D({
 	generatorFunctions : generatorFunctions,
 	size : {
-		randomFactor : 20,
-		minimum : 60
+		randomFactor : 10,
+		minimum : 1500
 	} 
 });
 
-export default FacialHairGenerator;
+export default FacialHairOutlineGenerator;

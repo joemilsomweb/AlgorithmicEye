@@ -9,7 +9,7 @@ const PupilGenerator = new AbstractGenerator2D({
 	generatorFunctions : generatorFunctions,
 	size : {
 		randomFactor : 20,
-		minimum : 60
+		minimum : 20
 	} 
 });
 
