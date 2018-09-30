@@ -1,5 +1,3 @@
-import Texture from "shaders/texture";
-import ShaderFactory from "shaders//shader_factory";
 import * as Three from "three-full";
 import AbstractGenerator2D from "face_generators/abstract_generator_2d";
 

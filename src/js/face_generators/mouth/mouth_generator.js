@@ -9,6 +9,8 @@ import NoiseRotationComponent from 'components/noise_rotation_component';
 import ScaleComponent from 'components/transform/scale_component';
 import AnimInComponent from 'components/transform/anim_in_component';
 
+import MoustacheOutlineGenerator from "face_generators/mouth/2D/teeth_generator_2d";
+
 const paper = require("paper");
 import * as Three from "three-full";
 
@@ -28,21 +30,25 @@ const mouth = {
 				z : -5
 		}));
 
-		TeethGenerator.generate();
-
-		const numTeeth = Math.floor(Math.random() * 30); 
 		let teethEntities = this.setupTeeth(
 			options.position,	
-			TeethGenerator, 
-			numTeeth, 
 			mouthEntity.getComponent("MESH"),
 			options.mouthGenerator.getCurrentPath()
 		);
 
-		return [mouthEntity].concat(teethEntities);
+		let moustacheEntities = this.setupFacialHair();
+
+		return [mouthEntity].concat(teethEntities, moustacheEntities);
 	},
 
-	setupTeeth(position, teethGenerator, numTeeth, mouthMesh, mouthPath){
+	setupMouthBg : function(){
+
+	},
+
+	setupTeeth(position, mouthMesh, mouthPath){
+		TeethGenerator.generate();
+		const numTeeth = Math.floor(Math.random() * 30); 
+
 		let teethEntities = [];
 		let teethSep = mouthPath.length/numTeeth; 
 
@@ -50,18 +56,17 @@ const mouth = {
 		for(let i = 0; i < numTeeth; i++){
 			let teethEntity = new Entity();
 			let point = mouthPath.getPointAt(teethSep * i);
+
 			//quick hack here
 			if(point.y > mouthPath.bounds.height/2){
 				continue;
 			}
 			
-			teethEntity.addComponent(new MeshComponent({mesh : teethGenerator.getCurrentMesh()}));
-
-			// debugger
+			teethEntity.addComponent(new MeshComponent({mesh : TeethGenerator.getCurrentMesh()}));
 
 
 			teethEntity.addComponent(new MaterialComponent({
-				shader : teethGenerator.getCurrentShader(),
+				shader : TeethGenerator.getCurrentShader(),
 				blendMode : {
 					equation : Three.AddEquation,
 					src : Three.DstAlphaFactor,
@@ -98,8 +103,7 @@ const mouth = {
 	},
 
 	setupFacialHair(position){
-		MoustacheFactory.generate();
-		FacialHairFactory.generate();
+		MoustacheOutlineGenerator.generate();
 
 		let moustacheHairEntities = [];
 
@@ -112,6 +116,8 @@ const mouth = {
 
 			moustacheHairEntities.push(facialHairEntity);
 		}
+
+		return [];
 
 	}
 

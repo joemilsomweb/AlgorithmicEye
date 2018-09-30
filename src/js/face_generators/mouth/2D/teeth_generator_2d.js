@@ -1,9 +1,7 @@
-import Texture from "shaders/texture";
-import ShaderFactory from "shaders/shader_factory";
 import * as Three from "three-full";
 import AbstractGenerator2D from "face_generators/abstract_generator_2d";
 
-import ColourShader from "shaders/shaders/colour_shader/colour.shader";
+import ColourShader from "shaders/material_shaders/colour_shader/colour.shader";
 
 let generatorFunctions = {OUTLINE_DATA_LOADER?directory="data/eyelash_geometry"};
 
@@ -15,9 +13,9 @@ let TeethGenerator = new AbstractGenerator2D({
 	} 
 });
 
-//override get current shaders
+/***OVERRIDE***/
+
 TeethGenerator.getCurrentShader = function(){
-	// console.log("current");
 	return new ColourShader(this.texture.canvas, new Three.Vector4(1, 1, 1, 1));
 };
 

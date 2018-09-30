@@ -24,8 +24,9 @@ function generateEyes(){
 	PupilGenerator.generate();
 	EyelashGenerator.generate();
 
-	let numEyelashes = Math.floor(Math.random() * 20) + 4;
+	let numEyelashes = Math.floor(Math.random() * 10) + 4;
 
+	//put in eye generator class
 	let leftEyeEntities = EyeGenerator.create({
 		eyeballGenerator : EyeballGenerator, 
 		pupilGenerator : PupilGenerator,
@@ -48,18 +49,18 @@ function generateEyes(){
 		numEyelashes : numEyelashes
 	});
 
-	let topEyeEntities = EyeGenerator.create({
-		eyeballGenerator : EyeballGenerator, 
-		pupilGenerator : PupilGenerator,
-		eyelashGenerator : EyelashGenerator,
-		position : {
-			x : 0,
-			y : 140
-		},
-		numEyelashes : numEyelashes
-	});
+	// let topEyeEntities = EyeGenerator.create({
+	// 	eyeballGenerator : EyeballGenerator, 
+	// 	pupilGenerator : PupilGenerator,
+	// 	eyelashGenerator : EyelashGenerator,
+	// 	position : {
+	// 		x : 0,
+	// 		y : 140
+	// 	},
+	// 	numEyelashes : numEyelashes
+	// });
 
-	return leftEyeEntities.concat(rightEyeEntities, topEyeEntities);
+	return leftEyeEntities.concat(rightEyeEntities);
 }
 
 function generateMouth(){
@@ -81,8 +82,10 @@ setRandomBackground();
 
 
 //todo create class here
-const width = window.innerWidth;
-const height = window.innerHeight;
+const width = 1280;
+const height = 800;
+canvas.width = width;
+canvas.height = height;
 
 let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true, antialias : false});
 
@@ -92,7 +95,7 @@ ThreeScene.scale.y = 0.85;
 let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 0, 1000);
 let ThreeRenderTarget = new Three.WebGLRenderTarget(window.innerWidth, window.innerHeight);
 
-ThreeRenderer.setSize(window.innerWidth, window.innerHeight);
+// ThreeRenderer.setSize(1280, 800);
 canvas.style.height = "";
 
 
@@ -109,11 +112,16 @@ function draw(time){
 
 //for debug
 window.onkeypress = function(e){
-	if(e.keyCode == 32){
+	if(e.keyCode === 32){
         entities = generateEyes();
         entities = entities.concat(generateMouth());
         setRandomBackground();
     }
+
+    if(e.keyCode === 99){
+        setRandomBackground();
+    }
+
 }
 
 function setRandomBackground(){

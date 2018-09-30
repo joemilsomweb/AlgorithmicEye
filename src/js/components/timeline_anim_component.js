@@ -1,13 +1,28 @@
 class TimelineAnimComponent{
 	
 	constructor(options){
-		this.scale = 1;
-		this.sinOffset = 0;
-	}
+		this.posOffsetX = 0;
+		this.posOffsetY = 0;
+		this.animTween = new TimelineMax({repeat : -1});
+		this.animTween.add(new TweenMax.set(this, 1, {posOffsetX : 0, posOffsetY : 0}));
+		this.animTween.add(new TweenMax.to(this, 0.5, {posOffsetX : 70, ease : "Power2.easeOut"}));
+		this.animTween.add(new TweenMax.to(this, 0.25, {posOffsetX : 70, ease : "Power2.easeOut"}));
+		this.animTween.add(new TweenMax.to(this, 1, {posOffsetX : -70, ease : "Power2.easeOut"}));
+		this.animTween.add(new TweenMax.to(this, 0.25, {posOffsetX : -70, ease : "Power2.easeOut"}));
+		this.animTween.add(new TweenMax.to(this, 1, {posOffsetX : 0, posOffsetY : -70, ease : "Power2.easeOut"}));
+		this.animTween.add(new TweenMax.to(this, 0.25, {posOffsetX : 0, posOffsetY : -70, ease : "Power2.easeOut"}));
+		this.animTween.add(new TweenMax.to(this, 1, {posOffsetX : 0, posOffsetY : 70, ease : "Power2.easeOut"}));
+		this.animTween.add(new TweenMax.to(this, 0.25, {posOffsetX : 0, posOffsetY : 70, ease : "Power2.easeOut"}));
+		this.animTween.add(new TweenMax.to(this, 1, {posOffsetX : 0, posOffsetY : 0, ease : "Power2.easeOut"}));
 
-	updateScale(){
-		this.sinOffset += 0.05;
-		this.scale = (Math.sin(this.sinOffset) + 1)/2;
+		this.animTween.loop = true;
+		this.progress = 0;
+		this.animTween.pause();
+	}    
+
+	update(){
+		this.progress += 0.001;
+		this.animTween.progress(this.progress);
 	}
 }
 

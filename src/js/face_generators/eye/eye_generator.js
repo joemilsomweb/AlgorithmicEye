@@ -16,6 +16,7 @@ import ScaleComponent from 'components/transform/scale_component';
 import AnimInComponent from 'components/transform/anim_in_component';
 import BlinkComponent from 'components/blink_component';
 import MaterialComponent from 'components/render/material_component';
+import PupilMovementComponent from 'components/timeline_anim_component';
 
 //can replace with shim....
 const paper = require("paper");
@@ -52,6 +53,7 @@ const eye = {
 				y : position.y,
 				z : -2
 		}));
+		eyeEntity.addComponent(new BlinkComponent());
 
 		return eyeEntity;
 	},
@@ -79,11 +81,13 @@ const eye = {
 		pupilEntity.addComponent(new NoiseRotationComponent({
 			scale : 10
 		}));
+		// pupilEntity.addComponent(new BoundsComponent({}));
+
+		pupilEntity.addComponent(new PupilMovementComponent());
 
 
 		eyeMesh.addChild(pupilEntity.getComponent("MESH"));
 		// pupilEntity.addComponent(new MouseFollowComponent());
-
 		// pupilEntity.addComponent(new NoiseComponent());
 
 		return pupilEntity;
