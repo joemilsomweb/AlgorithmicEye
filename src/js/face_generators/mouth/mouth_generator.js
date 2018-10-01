@@ -12,17 +12,30 @@ import AnimInComponent from 'components/transform/anim_in_component';
 import MoustacheOutlineGenerator from "face_generators/mouth/2D/facial_hair_outline_generator";
 import MoustacheHairGenerator from "face_generators/mouth/2D/facial_hair_generator";
 
+import AbstractGenerator2D from "face_generators/abstract_generator_2d";
+import GeometryData from "data/geometry_data";
+
 const paper = require("paper");
 import * as Three from "three-full";
 
 const mouth = {
 	create(options){
+		let mouthGenerator = new AbstractGenerator2D({
+			generatorFunctions : GeometryData.MOUTH,
+			size : {
+				randomFactor : 150,
+				minimum : 150
+			} 
+		});
+
+		mouthGenerator.generate();
+
 		let mouthEntity = new Entity();
 
 		//put mouth generator in here?? or outside to share the generator between multiple instances
-		mouthEntity.addComponent(new MeshComponent({mesh : options.mouthGenerator.getCurrentMesh()}));
+		mouthEntity.addComponent(new MeshComponent({mesh : mouthGenerator.getCurrentMesh()}));
 		mouthEntity.addComponent(new MaterialComponent({
-			shader : options.mouthGenerator.getCurrentShader(),
+			shader : mouthGenerator.getCurrentShader(),
 			blendMode : {
 					equation : Three.AddEquation,
 					src : Three.OneMinusDstAlphaFactor,
@@ -39,16 +52,12 @@ const mouth = {
 		let teethEntities = this.setupTeeth(
 			options.position,	
 			mouthEntity.getComponent("MESH"),
-			options.mouthGenerator.getCurrentPath()
+			mouthGenerator.getCurrentPath()
 		);
 
 		let moustacheEntities = this.setupFacialHair(mouthEntity.getComponent("MESH"));
 
 		return [mouthEntity].concat(teethEntities, moustacheEntities);
-	},
-
-	setupMouthBg : function(){
-
 	},
 
 	setupTeeth(position, mouthMesh, mouthPath){

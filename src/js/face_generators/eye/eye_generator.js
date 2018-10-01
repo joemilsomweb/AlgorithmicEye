@@ -18,12 +18,9 @@ import BlinkComponent from 'components/blink_component';
 import MaterialComponent from 'components/render/material_component';
 import PupilMovementComponent from 'components/timeline_anim_component';
 
-//can replace with shim....
 const paper = require("paper");
 import * as Three from "three-full";
 
-
-//todo place eye at center point...
 const eye = {
 	create : function(options){
 		let eyeEntity = this.setupEye(options.position, options.eyeballGenerator);
@@ -55,10 +52,6 @@ const eye = {
 		}));
 		eyeEntity.addComponent(new BlinkComponent());
 
-		// const s = 0.5;
-		// const scale = {x : 1, y : s};
-		// eyeEntity.addComponent(new ScaleComponent({scale : scale}));
-
 		return eyeEntity;
 	},
 
@@ -75,7 +68,6 @@ const eye = {
 			}
 		}));
 
-		//create pupil at center, refactor later
 		pupilEntity.addComponent(new PositionComponent({
 				x : 0,
 				y : 0,
@@ -85,14 +77,11 @@ const eye = {
 		pupilEntity.addComponent(new NoiseRotationComponent({
 			scale : 10
 		}));
-		// pupilEntity.addComponent(new BoundsComponent({}));
 
 		pupilEntity.addComponent(new PupilMovementComponent());
 
 
 		eyeMesh.addChild(pupilEntity.getComponent("MESH"));
-		// pupilEntity.addComponent(new MouseFollowComponent());
-		// pupilEntity.addComponent(new NoiseComponent());
 
 		return pupilEntity;
 	},
@@ -120,7 +109,6 @@ const eye = {
 
 			//get normal vector
 			const normal = eyePath.getNormalAt(eyelashSep * i);
-			//todo, refactor!!
 			normal.x = -normal.x;
 			normal.y =  normal.y;
 			const dirVector = new paper.Point(0, -1);
