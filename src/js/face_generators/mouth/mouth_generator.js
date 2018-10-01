@@ -22,13 +22,18 @@ const mouth = {
 		//put mouth generator in here?? or outside to share the generator between multiple instances
 		mouthEntity.addComponent(new MeshComponent({mesh : options.mouthGenerator.getCurrentMesh()}));
 		mouthEntity.addComponent(new MaterialComponent({
-			shader : options.mouthGenerator.getCurrentShader()
+			shader : options.mouthGenerator.getCurrentShader(),
+			blendMode : {
+					equation : Three.AddEquation,
+					src : Three.OneMinusDstAlphaFactor,
+					dest : Three.SrcAlphaFactor
+			}
 		}));
 
 		mouthEntity.addComponent(new PositionComponent({
 				x : options.position.x,
 				y : options.position.y,
-				z : -1
+				z : 0
 		}));
 
 		let teethEntities = this.setupTeeth(
@@ -37,7 +42,7 @@ const mouth = {
 			options.mouthGenerator.getCurrentPath()
 		);
 
-		let moustacheEntities = this.setupFacialHair();
+		let moustacheEntities = this.setupFacialHair(mouthEntity.getComponent("MESH"));
 
 		return [mouthEntity].concat(teethEntities, moustacheEntities);
 	},
@@ -103,7 +108,7 @@ const mouth = {
 		return teethEntities;
 	},
 
-	setupFacialHair(position){
+	setupFacialHair(mouthMesh){
 		MoustacheOutlineGenerator.generate();
 		MoustacheHairGenerator.generate();
 
@@ -128,6 +133,8 @@ const mouth = {
 				y : 0,
 				z : -1
 		}));
+
+		headEntity.getComponent("MESH").addChild(mouthMesh);
 
 		return headEntity;
 
