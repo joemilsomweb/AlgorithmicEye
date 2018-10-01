@@ -1,6 +1,6 @@
-# Algo-Eye !!!WORK IN PROGRESS, ITS STILL UGLY!!!
+# Algo-Eye. 
 
-An Algorithmic(ish) Eye(and eventually face) generator (very much a work in progress)
+A face like / creature generator (very much a work in progress)
 
 First attempt at creating an Entity Component System type architecture in JS,
 not neccessarily perfect but the separation of data concerns into components and avoidance of 
@@ -10,3 +10,5 @@ Also testing out using Webpack as a bundle generator (as opposed to grunt) with 
 I like it so far....
 
 http://thejosefu.com/AlgorithmicEye
+
+Very much inspired by the work by Mokafolio:https://www.mokafolio.de/works. 
