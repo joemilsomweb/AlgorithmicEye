@@ -90,8 +90,8 @@ canvas.height = height;
 let ThreeRenderer = new Three.WebGLRenderer({canvas : canvas, alpha : true, antialias : false});
 
 let ThreeScene = new Three.Scene();
-ThreeScene.scale.x = 0.85;
-ThreeScene.scale.y = 0.85;
+ThreeScene.scale.x = 0.5;
+ThreeScene.scale.y = 0.5;
 let ThreeCamera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 0, 1000);
 let ThreeRenderTarget = new Three.WebGLRenderTarget(window.innerWidth, window.innerHeight);
 

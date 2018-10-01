@@ -4,6 +4,8 @@ const ThreeRenderSystem = {
 
 		this.removeOldMeshes(threeScene, entities);
 
+		// threeScene.rotation. = 0.1;
+
 		for(var entity of entities){
 			if(entity.getComponent("MESH")){
 				const meshComp = entity.getComponent("MESH");

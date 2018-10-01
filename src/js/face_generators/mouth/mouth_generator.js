@@ -28,7 +28,7 @@ const mouth = {
 		mouthEntity.addComponent(new PositionComponent({
 				x : options.position.x,
 				y : options.position.y,
-				z : -5
+				z : -1
 		}));
 
 		let teethEntities = this.setupTeeth(
@@ -128,41 +128,42 @@ const mouth = {
 				y : 0,
 				z : -1
 		}));
-		// const numHairs = Math.floor(Math.random() * 20); 
-		// const numHairs = 50; 
-		// const hairSep = path.length/numHairs;
+
+		return headEntity;
+
+		// const numHairs = Math.floor(Math.random() * 100); 
 
 		// for(let i = 0; i < numHairs; i++){
 		// 	let facialHairEntity = new Entity();
-		// 	let point = path.getPointAt(hairSep * i);
-
 
 		// 	facialHairEntity.addComponent(new MeshComponent({mesh : MoustacheHairGenerator.getCurrentMesh()}));
 		// 	facialHairEntity.addComponent(new MaterialComponent({
 		// 		shader : MoustacheHairGenerator.getCurrentShader(),
 		// 		blendMode : {
 		// 			equation : Three.AddEquation,
-		// 			src : Three.OneMinusDstAlphaFactor,
-		// 			dest : Three.DstAlphaFactor
+		// 			src : Three.DstAlphaFactor,
+		// 			dest : Three.OneMinusSrcAlphaFactor
 		// 		}
 		// 	}));
 
 		// 	facialHairEntity.addComponent(new PositionComponent({
-		// 		x : point.x - path.bounds.width/2,
-		// 		y : -point.y + path.bounds.height/2,
+		// 		x : Math.random() * 1000 - 500,
+		// 		y : Math.random() * 1000 - 500,
 		// 		z : 0
 		// 	}));
+
+		// 	headEntity.getComponent("MESH").addChild(facialHairEntity.getComponent("MESH"));
 
 		// 	facialHairEntity.addComponent(new RotationComponent({
 		// 		rotation : Math.random() * 90 * Math.PI / 180
 		// 	}));
 
-		// 	// facialHairEntity.addComponent(new ScaleComponent({scale : {x : 5, y : 5}}));
+		// 	facialHairEntity.addComponent(new ScaleComponent({scale : {x : Math.random(), y : Math.random()}}));
 
 		// 	moustacheHairEntities.push(facialHairEntity);
 		// }
 
-		return headEntity;
+		// return moustacheHairEntities.concat(headEntity);
 
 	}
 

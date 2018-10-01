@@ -2,8 +2,6 @@ import Texture from "shaders/texture";
 import ShaderFactory from "shaders/shader_factory";
 import * as Three from "three-full";
 
-//Can we turn this into a factory class? instead of extending each time
-
 class AbstractGenerator2D{
 
 	constructor(options){
@@ -42,15 +40,12 @@ class AbstractGenerator2D{
 	}
 
 	getCurrentMesh(){
-		//instead of plane buffer geometry, how about generating a mesh from the points?
 		let geometry = new Three.PlaneBufferGeometry(this.texture.width, this.texture.height);
 		let material = new Three.MeshBasicMaterial({
 			color : 0xff0000
 		});
 
 		let mesh = new Three.Mesh(geometry, material);
-
-		// mesh = this.getMeshFromPoints();
 
 		return mesh;
 	}
@@ -60,7 +55,6 @@ class AbstractGenerator2D{
 	}
 
 	getCurrentTexture(){
-		//rename?.... for sure bro
 		return this.texture.canvas;
 	}
 

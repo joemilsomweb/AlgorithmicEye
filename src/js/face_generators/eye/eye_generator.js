@@ -134,7 +134,7 @@ const eye = {
 			eyelashEntity.addComponent(new PositionComponent({
 				x : point.x - eyePath.bounds.width/2,
 				y : -point.y + eyePath.bounds.height/2,
-				z : 1
+				z : 0
 			}));
 
 			eyelashEntity.addComponent(new NoiseRotationComponent({scale : 10}));
