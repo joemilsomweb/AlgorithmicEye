@@ -1,7 +1,7 @@
 import * as Three from "three-full";
 
-const vertShader = require("shaders/shaders/raymarch_blob/vertex.glsl");
-const fragShader = require("shaders/shaders/raymarch_blob/fragment.glsl");
+const vertShader = require("shaders/material_shaders/raymarch_blob/vertex.glsl");
+const fragShader = require("shaders/material_shaders/raymarch_blob/fragment.glsl");
 
 class ColourShader{
 	constructor(texture){

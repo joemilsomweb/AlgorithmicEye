@@ -1,8 +1,8 @@
 const ThreeRenderSystem = {
 
-	render : function(entities, threeRenderer, threeScene, camera, target) {
+	render : function(entities, scene) {
 
-		this.removeOldMeshes(threeScene, entities);
+		this.removeOldMeshes(scene.scene, entities);
 
 		// threeScene.rotation. = 0.1;
 
@@ -26,12 +26,12 @@ const ThreeRenderSystem = {
 				
 				//todo dont add every frame!! Do it at the initialisation stage
 				if(!meshComp.mesh.parent){
-					threeScene.add(meshComp.mesh);
+					scene.scene.add(meshComp.mesh);
 				}
 			}			
 		}
 
-		threeRenderer.render(threeScene, camera, target);
+		scene.renderer.render(scene.scene, scene.camera, scene.renderTarget);
 	},
 
 	//this does not need to be here. put it outside, so its not running every frame

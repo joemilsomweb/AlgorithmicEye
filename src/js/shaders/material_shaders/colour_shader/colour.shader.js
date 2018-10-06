@@ -1,7 +1,7 @@
 import * as Three from "three-full";
 
-const vertShader = require("shaders/shaders/colour_shader/vert.glsl");
-const fragShader = require("shaders/shaders/colour_shader/frag.glsl");
+const vertShader = require("shaders/material_shaders/colour_shader/vert.glsl");
+const fragShader = require("shaders/material_shaders/colour_shader/frag.glsl");
 
 class ColourShader{
 	constructor(texture, col){

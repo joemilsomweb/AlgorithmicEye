@@ -1,28 +1,42 @@
+import Entity from 'entity';
+
+import Texture from 'shaders/texture';
+
+import MeshComponent from 'components/render/mesh_component';
+import PositionComponent from 'components/transform/position_component';
+import RotationComponent from 'components/transform/rotation_component';
+import NoiseRotationComponent from 'components/noise_rotation_component';
+import ScaleComponent from 'components/transform/scale_component';
+import MaterialComponent from 'components/render/material_component';
+
 import AbstractGenerator2D from "face_generators/abstract_generator_2d";
 import GeometryData from "data/geometry_data";
 
-class HeadGenerator(){
+import * as Three from "three-full";
+
+
+class HeadGenerator{
 	
 	constructor(){
-
+		this.headGenerator = new AbstractGenerator2D({
+			generatorFunctions : GeometryData.PUPIL,
+			size : {
+				randomFactor : 10,
+				minimum : 1500
+			}
+		});
 	}
 
-	createHead(){
-		const headGenerator = new AbstractGenerator2D(size : {
-			generatorFunctions : GeometryData.PUPIL
-			randomFactor : 10,
-			minimum : 1500
-		});
+	create(){
+		this.headGenerator.generate();
 
-		headGenerator.generate();
-
-		const path = headGenerator.getCurrentPath();
+		const path = this.headGenerator.getCurrentPath();
 
 		let headEntity = new Entity();
 
-		headEntity.addComponent(new MeshComponent({mesh : headGenerator.getCurrentMesh()}));
+		headEntity.addComponent(new MeshComponent({mesh : this.headGenerator.getCurrentMesh()}));
 		headEntity.addComponent(new MaterialComponent({
-			shader : headGenerator.getCurrentShader(),
+			shader : this.headGenerator.getCurrentShader(),
 			blendMode : {
 					equation : Three.AddEquation,
 					src : Three.OneMinusDstAlphaFactor,
@@ -77,3 +91,5 @@ class HeadGenerator(){
 
 
 }
+
+export default HeadGenerator;

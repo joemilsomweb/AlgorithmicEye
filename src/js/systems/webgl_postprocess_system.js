@@ -20,14 +20,14 @@ ScreenScene.add(ScreenMesh);
 
 const WebGLPostProcessSystem = {
 
-	render : function(threeRenderer, target) {
+	render : function(scene) {
 		ScreenMesh.material = testShader.material;
-		testShader.updateTexture(target.texture);
-		threeRenderer.render(ScreenScene, ScreenCamera, testShader.getRenderTarget());
+		testShader.updateTexture(scene.renderTarget.texture);
+		scene.renderer.render(ScreenScene, ScreenCamera, testShader.getRenderTarget());
 
 		ScreenMesh.material = noiseShader.material;
 		noiseShader.updateTexture(testShader.getRenderTarget());
-		threeRenderer.render(ScreenScene, ScreenCamera);
+		scene.renderer.render(ScreenScene, ScreenCamera);
 	}
 
 }
