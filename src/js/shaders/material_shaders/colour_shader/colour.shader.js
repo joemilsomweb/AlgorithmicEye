@@ -35,18 +35,6 @@ class ColourShader{
 		this.material.uniforms.map.value.needsUpdate = true;
 	}
 
-	debugTexture(texture){
-		if(document.getElementById("debugCanvas")){
-			document.body.removeChild(document.getElementById("debugCanvas"));
-		}
-		document.body.appendChild(texture);
-		texture.id = "debugCanvas";
-		texture.style.position = "absolute";
-		texture.style.top = 0;
-
-		// console.log(texture.width, texture.height);
-	}
-
 }
 
 export default ColourShader;

@@ -2,6 +2,7 @@ import Entity from 'entity';
   
 //systems
 import ThreeRenderSystem from "systems/three_render_system";
+import ThreeStencilSystem from "systems/three_stencil_system";
 import UpdatePosSystem from "systems/update_pos_system";
 import ScaleSystem from "systems/scale_system";
 import WebglPostProcessSystem from "systems/webgl_postprocess_system";
@@ -14,6 +15,7 @@ let creature = new CreatureGenerator();
 let entities = creature.entities;
 let currentFrame = 0;
 
+//just put scene into three render system
 const canvas = document.getElementById("main_canvas");
 let scene = new CanvasScene({canvas : canvas});
 scene.setRandomBackground();
@@ -24,6 +26,7 @@ function draw(time){
 	ScaleSystem.update(entities);
 	UpdatePosSystem.update(entities);
 	ThreeRenderSystem.render(entities, scene);
+	// ThreeStencilSystem.render(entities, scene);
 	WebglPostProcessSystem.render(scene);
 
 	currentFrame++;
@@ -34,6 +37,7 @@ function draw(time){
 window.onkeypress = function(e){
 	if(e.keyCode === 32){
 		let creature = new CreatureGenerator();
+		// let creature2 = new CreatureGenerator();
         entities = creature.entities;
         scene.setRandomBackground();
     }

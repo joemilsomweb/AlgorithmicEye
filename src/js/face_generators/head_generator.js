@@ -8,6 +8,7 @@ import RotationComponent from 'components/transform/rotation_component';
 import NoiseRotationComponent from 'components/noise_rotation_component';
 import ScaleComponent from 'components/transform/scale_component';
 import MaterialComponent from 'components/render/material_component';
+import StencilComponent from 'components/render/stencil_component';
 
 import AbstractGenerator2D from "face_generators/abstract_generator_2d";
 import GeometryData from "data/geometry_data";
@@ -19,36 +20,40 @@ class HeadGenerator{
 	
 	constructor(){
 		this.headGenerator = new AbstractGenerator2D({
-			generatorFunctions : GeometryData.PUPIL,
+			generatorFunctions : GeometryData.HEAD,
 			size : {
-				randomFactor : 10,
+				randomFactor : 100,
 				minimum : 1500
 			}
 		});
+
+		this.headGenerator.generate();
 	}
 
 	create(){
-		this.headGenerator.generate();
-
 		const path = this.headGenerator.getCurrentPath();
 
 		let headEntity = new Entity();
 
-		headEntity.addComponent(new MeshComponent({mesh : this.headGenerator.getCurrentMesh()}));
+		headEntity.addComponent(new MeshComponent({mesh : this.headGenerator.getCurrentMesh(), renderOrder : 4}));
 		headEntity.addComponent(new MaterialComponent({
 			shader : this.headGenerator.getCurrentShader(),
 			blendMode : {
 					equation : Three.AddEquation,
 					src : Three.OneMinusDstAlphaFactor,
-					dest : Three.DstAlphaFactor
+					dest : Three.SrcAlphaFactor
 			}
 		}));
 
 		headEntity.addComponent(new PositionComponent({
 				x : 0,
 				y : 0,
-				z : -1
+				z : 0
 		}));
+
+		headEntity.addComponent(new StencilComponent());
+
+		headEntity.addComponent(new ScaleComponent({scale : {x : 1, y : 1}}));
 
 		return headEntity;
 	}

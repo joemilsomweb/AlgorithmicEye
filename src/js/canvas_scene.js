@@ -16,13 +16,10 @@ class CanvasScene{
 		this.scene.scale.x = 0.5;
 		this.scene.scale.y = 0.5;
 		this.camera = new Three.OrthographicCamera(width/-2, width/2, height/2, height/-2, 0, 1000);
-		this.renderTarget = new Three.WebGLRenderTarget(window.innerWidth, window.innerHeight);
+		this.renderTarget = new Three.WebGLRenderTarget(1280, 800);
+		this.stencilTarget = new Three.WebGLRenderTarget(1280, 800);
 
 		this.canvas.style.height = "";
-	}
-
-	render(){
-
 	}
 
 	setRandomBackground(){

@@ -8,10 +8,14 @@ class AbstractGenerator2D{
 		this.generatorFunctions = options.generatorFunctions;
 		this.sizeRandomFactor = options.size.randomFactor;
 		this.sizeMinimum = options.size.minimum;
+
+		//pass in shader factory 
+		this.shaderFactory = options.shaderFactory || new ShaderFactory();
 	}
 
 	generate(){
 		this.size = Math.random() * this.sizeRandomFactor + this.sizeMinimum;
+		// this.sizeY = Math.random() * this.sizeRandomFactor + this.sizeMinimum;
 
 		//choose random generator from list
 		const generator = this.generatorFunctions[Math.floor(Math.random()*this.generatorFunctions.length)];
@@ -35,12 +39,13 @@ class AbstractGenerator2D{
 	}
 
 	createShader(){
-		ShaderFactory.generate(this.texture.canvas);
-		this.shader = ShaderFactory.get();
+		this.shaderFactory.generate(this.texture.canvas);
+		this.shader = this.shaderFactory.get();
 	}
 
 	getCurrentMesh(){
 		let geometry = new Three.PlaneBufferGeometry(this.texture.width, this.texture.height);
+		// let geometry = new Three.SphereGeometry(this.texture.width);
 		let material = new Three.MeshBasicMaterial({
 			color : 0xff0000
 		});

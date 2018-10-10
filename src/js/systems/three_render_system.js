@@ -1,14 +1,22 @@
+
+
 const ThreeRenderSystem = {
 
 	render : function(entities, scene) {
-
 		this.removeOldMeshes(scene.scene, entities);
 
-		// threeScene.rotation. = 0.1;
+		// scene.renderer.autoClear = false;
+		// scene.renderer.clear(true, false, true);
+
 
 		for(var entity of entities){
 			if(entity.getComponent("MESH")){
 				const meshComp = entity.getComponent("MESH");
+
+				//todo dont add every frame!! Do it at the initialisation stage
+				if(!meshComp.mesh.parent){
+					scene.scene.add(meshComp.mesh);
+				}
 
 				let posComp = entity.getComponent("POSITION");
 				meshComp.mesh.position.x = posComp.x;
@@ -23,14 +31,8 @@ const ThreeRenderSystem = {
 				//todo put in rotation system
 				meshComp.mesh.rotation.z = entity.getComponent("ROTATION") ? entity.getComponent("ROTATION").rotation : 0; 
 				meshComp.mesh.rotation.z += entity.getComponent("NOISE_ROTATION") ? entity.getComponent("NOISE_ROTATION").rotation : 0; 
-				
-				//todo dont add every frame!! Do it at the initialisation stage
-				if(!meshComp.mesh.parent){
-					scene.scene.add(meshComp.mesh);
-				}
 			}			
 		}
-
 		scene.renderer.render(scene.scene, scene.camera, scene.renderTarget);
 	},
 
