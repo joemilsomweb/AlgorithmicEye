@@ -37,7 +37,7 @@ module.exports = {
   resolve: {
     modules: [
       path.resolve('./src/js'),
-      path.resolve('./node_modules'),
+      path.resolve('./node_modules')
     ]
   },
   module : {

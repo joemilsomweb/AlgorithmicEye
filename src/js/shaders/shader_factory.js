@@ -1,23 +1,23 @@
-//todo add more shaders
-import ColourShader from "shaders/shaders/colour_shader/colour.shader";
-import RandomColourShader from "shaders/shaders/random_colour/random_colour.shader";
-import RayMarchBlobShader from "shaders/shaders/raymarch_blob/raymarch_blob.shader";
+import ShaderFactoryGroups from "data/shader_factory_groups";
 
-// const shaderList = [ColourShader, RandomColourShader];
-const shaderList = [ColourShader, RandomColourShader, RayMarchBlobShader];
-// const shaderList = [RayMarchBlobShader];
+class ShaderFactory{
 
-const ShaderFactory = {
-	generate : function(texture){
-		const shader = shaderList[Math.floor(Math.random()*shaderList.length)];
+	constructor(options){
+		if(options){
+			this.shaderList = options.shaderList || ShaderFactoryGroups.DEFAULT;
+		}
+		else{
+			this.shaderList = ShaderFactoryGroups.DEFAULT;
+		}
+	}
 
-		// this.shader = shader;
-		//maybe pass in texture to the get function instead...
+	generate(texture){
+		const shader = this.shaderList[Math.floor(Math.random()*this.shaderList.length)];
+
 		this.shader = shader.bind(null, texture);
-	},
+	}
 
-	//return new shader type??
-	get : function(){
+	get(){
 		return this.shader;
 	}
 };
