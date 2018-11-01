@@ -20,7 +20,7 @@ import GeometryData from "data/geometry_data";
 
 import ShaderFactoryGroups from "data/shader_factory_groups";
 import ShaderFactory from "shaders/shader_factory";
-
+ 
 const paper = require("paper");
 import * as Three from "three-full";
 

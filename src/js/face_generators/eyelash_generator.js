@@ -54,7 +54,7 @@ class EyelashGenerator{
 			let eyelashEntity = new Entity();
 			let point = eyePath.getPointAt(eyelashSep * i);
 			
-			eyelashEntity.addComponent(new MeshComponent({mesh : this.eyelashGenerator.getCurrentMesh(), renderOrder : 3}));
+			eyelashEntity.addComponent(new MeshComponent({mesh : this.eyelashGenerator.getCurrentMesh(), renderOrder : 2}));
 			eyelashEntity.addComponent(new MaterialComponent({
 				shader : this.eyelashGenerator.getCurrentShader(),
 				blendMode : {

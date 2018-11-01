@@ -5,5 +5,6 @@ module.exports = new webpack.ProvidePlugin({
       // 'paper' : path.join(__dirname, '/src/js/lib/paperjs/paper-full.min'),
       'noise' : path.resolve('./src/js/lib/noise'),
       'TweenMax' : path.resolve('./src/js/lib/TweenMax/TweenMax.min'),
-      'TimelineMax' : path.resolve('./src/js/lib/TweenMax/TimelineMax.min')
+      'TimelineMax' : path.resolve('./src/js/lib/TweenMax/TimelineMax.min'),
+      'TweenLite' : path.resolve('./src/js/lib/TweenMax/TweenLite.min')
 });

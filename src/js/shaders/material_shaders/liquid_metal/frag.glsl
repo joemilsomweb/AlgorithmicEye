@@ -4,6 +4,7 @@ uniform sampler2D strangeNormMap;
 uniform sampler2D tinTexture;
 uniform sampler2D crystalTexture;
 uniform sampler2D resnMaskTexture;
+uniform sampler2D map;
 
 //updating variables
 //uniform float resnAlphaMult;
@@ -13,14 +14,32 @@ uniform float mixNormal;
 uniform float circleDist;
 uniform float time;
 
-varying vec4 vertTexCoord;
+uniform vec4 tint;
+
+varying vec2 vUv;
+
+
+float rand(vec2 n) { 
+    return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
+}
+
+float noise(vec2 p){
+    vec2 ip = floor(p);
+    vec2 u = fract(p);
+    u = u*u*(3.0-2.0*u);
+    
+    float res = mix(
+        mix(rand(ip),rand(ip+vec2(1.0,0.0)),u.x),
+        mix(rand(ip+vec2(0.0,1.0)),rand(ip+vec2(1.0,1.0)),u.x),u.y);
+    return res*res;
+}
 
 void main()
 {
 
 	//offset the base coordinates to simulate movement
-	float normX = vertTexCoord.x + sin(time / 10.);
-	float normY = vertTexCoord.y + sin(time / 10.);
+	float normX = vUv.x; //+ sin(time / 10.);
+	float normY = vUv.y; //+ sin(time / 10.);
 
 	vec2 normCoords = vec2(normX, normY);
 
@@ -28,15 +47,15 @@ void main()
 	vec4 texMix = mix(texture2D(stringNormMap, normCoords), texture2D(strangeNormMap, normCoords), mixNormal);
 
 	//distort the texture loohup for cool effects
-	float x = ((sin(texMix.x + time) + 1.) * 5.) * .05 + sin(vertTexCoord.x * time * 0.02);
-	float y = ((sin(texMix.y + time * 0.5) + 2.)) +  + cos(vertTexCoord.y * time * 0.01);
+	float x = ((sin(texMix.x + time) + 1.) * 5.) * .05 + sin(vUv.x * time * 0.02);
+	float y = ((sin(texMix.y + time * 0.5) + 2.)) +  + cos(vUv.y * time * 0.01);
 
-	float dist = distance(vertTexCoord.xy, vec2(0.5, 0.5));
+	float dist = distance(vUv.xy, vec2(0.5, 0.5));
 	float aMult = 1.;	
 
 	//get the distance of the fragment from the center
-	float xDiff = vertTexCoord.x - 0.5;
-	float yDiff = vertTexCoord.y - 0.5;
+	float xDiff = vUv.x - 0.5;
+	float yDiff = vUv.y - 0.5;
 
 	//check if value in defined stroke circle
 	if(dist > circleDist && dist < circleDist + 0.3){
@@ -58,7 +77,7 @@ void main()
 
 	//uncomment to activate mercury/oilstain effect
 	//normalColor = mix(vec4(sin(normalColor.rbg * time), normalColor.a), normalColor, mixNormalPsych);
-	vec4 resnColor = texture2D(resnMaskTexture, (vertTexCoord.xy));
+	vec4 resnColor = texture2D(resnMaskTexture, (vUv.xy));
 
 	vec4 outputColor;
 
@@ -72,7 +91,14 @@ void main()
 		outputColor =  normalColor;
 	}
 
-	//outputColor.rgb *= aMult;
+	// vec2 uvDistort = vUv + noise(vUv * 5. + time * 3.) / 20.;
+	// uvDistort = clamp(uvDistort, 0., 1.);
+
+	// outputColor *= texture2D(map, uvDistort).a;
+	outputColor *= texture2D(map, vUv).a;
+	outputColor *= tint;
 
 	gl_FragColor = outputColor;
+	// gl_FragColor = texture2D(tinTexture, vUv);
+	// gl_FragColor = vec4(1.);
 }

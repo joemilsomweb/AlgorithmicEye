@@ -17,6 +17,8 @@ class CreatureGenerator{
 	}
 
 	createCreature(){
+		// this.creatureGroup = new Entit
+
 		this.head = new HeadGenerator();
 
 		this.eye = new EyeGenerator();
@@ -52,6 +54,8 @@ class CreatureGenerator{
 		let mouth = this.setupMouth({x : 0, y : -top/2.5});	
 		head.getComponent("MESH").addChild(mouth.mouth.getComponent("MESH"));
 		this.entities = this.entities.concat(mouth.entities);
+
+		// head.addComponent()
 	}
 
 	calculateEyePosition(eyeAreaWidth, numEyes, currentEyeInd){

@@ -14,7 +14,8 @@ import AbstractGenerator2D from "face_generators/abstract_generator_2d";
 import GeometryData from "data/geometry_data";
 
 import * as Three from "three-full";
-
+import ShaderFactoryGroups from "data/shader_factory_groups";
+import ShaderFactory from "shaders/shader_factory";
 
 class HeadGenerator{
 	
@@ -24,7 +25,8 @@ class HeadGenerator{
 			size : {
 				randomFactor : 100,
 				minimum : 1500
-			}
+			},
+			shaderFactory : new ShaderFactory({shaderList : ShaderFactoryGroups.HEAD})
 		});
 
 		this.headGenerator.generate();
@@ -35,7 +37,7 @@ class HeadGenerator{
 
 		let headEntity = new Entity();
 
-		headEntity.addComponent(new MeshComponent({mesh : this.headGenerator.getCurrentMesh(), renderOrder : 4}));
+		headEntity.addComponent(new MeshComponent({mesh : this.headGenerator.getCurrentMesh(), renderOrder : 3}));
 		headEntity.addComponent(new MaterialComponent({
 			shader : this.headGenerator.getCurrentShader(),
 			blendMode : {

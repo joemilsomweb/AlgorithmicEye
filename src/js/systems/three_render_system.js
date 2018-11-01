@@ -5,10 +5,6 @@ const ThreeRenderSystem = {
 	render : function(entities, scene) {
 		this.removeOldMeshes(scene.scene, entities);
 
-		// scene.renderer.autoClear = false;
-		// scene.renderer.clear(true, false, true);
-
-
 		for(var entity of entities){
 			if(entity.getComponent("MESH")){
 				const meshComp = entity.getComponent("MESH");
