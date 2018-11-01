@@ -49,8 +49,7 @@ module.exports = {
       {
         test : /\.glsl$/,
         use : "webpack-glsl-loader"
-      },
-
+      }
     ]
   },
   resolveLoader: {

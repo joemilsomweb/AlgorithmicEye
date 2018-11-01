@@ -9,14 +9,12 @@ const copy_plugin = new CopyWebpackPlugin([
         {
          from : "./src/images",
          to : path.resolve('./dist/images')
+        },
+        {
+         from : "./src/js/shaders/**/*.+(png|jpg|jpeg)",
+         to : path.resolve('./dist/images'),
+         flatten : true
         }
-        // {
-        //  from : "./src/shaders/**/*.(png|jpg)",
-        //  to : path.resolve('./dist/images/shaders/'),
-        //  transform : function(){
-
-        //  }
-        // }
  ]);
 
 module.exports = copy_plugin;
